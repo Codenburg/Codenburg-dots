@@ -1,0 +1,13 @@
+{
+  "version": 2,
+  "chunks": [
+    {
+      "id": "edca0077",
+      "created_by": "ace",
+      "created_at": "2026-10-07T21:20:15.654478154Z",
+      "sessions": 24,
+      "memories": 21,
+      "prompts": 11
+    }
+  ]
+}
