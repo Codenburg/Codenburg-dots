@@ -1,6 +1,6 @@
 # Intended architecture
 
-Codenburg Dots is planned as a provider-neutral Go monorepo application and catalog for managing selected Linux software and personal dotfiles. The repository currently contains no application implementation: this document defines intended architecture, not current executable behavior.
+Codenburg Dots is planned as a provider-neutral Go monorepo application and catalog for managing selected Linux software and personal dotfiles. The repository currently implements a read-only CLI for system summaries and APT package inspection; see [README](../README.md) for current commands. This document defines intended architecture, not current executable behavior.
 
 ## Intended management lifecycle
 
