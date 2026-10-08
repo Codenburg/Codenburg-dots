@@ -1,6 +1,6 @@
 # Codenburg Dots
 
-**Codenburg Dots** is an open-source personal Linux environment manager. The repository now contains the first read-only `cdots` CLI for Linux system summaries and APT package inspection; package management, plans, profiles, dotfiles, and the TUI remain planned, not implemented.
+**Codenburg Dots** is an open-source personal Linux environment manager. The repository contains a read-only `cdots` CLI for Linux system summaries, APT package inspection, and desired-present software plans; installation, apply, profiles, dotfiles, and the TUI remain planned, not implemented.
 
 ## Try the CLI
 
@@ -11,19 +11,29 @@ go build -o cdots ./cmd/cdots
 ./cdots
 ./cdots system
 ./cdots package <package-name>
+./cdots plan bash git neovim
 ```
 
 The system summary reports distribution identity, `ID_LIKE`, architecture, supported status, and whether `dpkg-query`, `apt-cache`, and `dpkg` are available. Package inspection reports installed and APT candidate versions when available. It uses read-only package queries and Debian version comparison; it does not refresh package metadata or install, remove, upgrade, or change repositories.
 
-The CLI explicitly supports Debian, Ubuntu, and Linux Mint IDs. `ID_LIKE` is diagnostic only and does not make other distributions supported. Package inspection requires those APT tools in `PATH`; no APT tools are needed for the system summary.
+`plan <software-id>...` selects logical IDs from the built-in catalog (`git`, `bash`, `neovim`), using their explicit APT packages. It validates the full selection before package queries, deduplicates IDs, and preserves request order (dependencies first if declared; the built-in entries declare none). Each entry shows software ID/name, provider, package, desired state, versions (`unknown` when absent), and a descriptive action:
+
+- `none`: reliably installed, even if a newer candidate exists.
+- `install`: not installed and an APT candidate is available; a label, not an operation.
+- `unavailable` or `error`: no candidate for missing software, or inspection failed; contextual diagnostics are shown.
+
+Incomplete plans retain useful entries on stdout and return exit code 2 with diagnostics on stderr. Invalid/unknown IDs, missing plan arguments, and environment failures also return 2; validation/environment failures perform no package queries. Successful commands return 0. No command applies a plan or upgrades installed software.
+
+The CLI explicitly supports Debian, Ubuntu, and Linux Mint IDs. `ID_LIKE` is diagnostic only and does not make other distributions supported. Package inspection and planning require those APT tools in `PATH`; no APT tools are needed for the system summary.
 
 ## Implemented and planned
 
 | Area | Status |
 | --- | --- |
 | Go 1.22 standard-library CLI, system detection, APT package inspection | Implemented; commands above |
-| Package installation or updates, Flatpak, profiles, software catalog, dotfiles, planning/apply, TUI | Planned; not implemented |
-| Debian, Ubuntu, Linux Mint and APT | Current read-only inspection boundary |
+| Built-in software catalog, APT resolution, simple dependency expansion, desired-present planning | Implemented; `plan <software-id>...`, read-only |
+| Package installation or updates, Flatpak, profiles, external configuration loading, dotfiles, apply, TUI | Planned; not implemented |
+| Debian, Ubuntu, Linux Mint and APT | Current read-only inspection/planning boundary |
 | Other distributions/providers, including Arch | Future scope |
 
 ## Project foundation

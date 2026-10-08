@@ -1,6 +1,6 @@
 <!-- agents-md-manager:managed:start -->
 ## Project essentials
-- This Go monorepo implements a read-only `cdots` CLI for system summaries and APT package inspection. Other capabilities remain planned; decisions alone are not proof of implementation. See [README.md](README.md).
+- This Go monorepo implements a read-only `cdots` CLI for system summaries, APT package inspection, and desired-present software plans using a minimal built-in catalog. Other capabilities remain planned; decisions alone are not proof of implementation. See [README.md](README.md).
 - Planned v0.1 scope is Debian, Ubuntu, and Linux Mint with APT (apt-get) and Flatpak/Flathub. Arch (pacman/paru) is future scope.
 
 ## Context routing

@@ -1,6 +1,6 @@
 # Configuration model
 
-This document defines the planned, provider-neutral configuration concepts for Codenburg Dots. No schema, serialization format, catalog implementation, or configuration loader exists yet. The [architecture](ARCHITECTURE.md) owns lifecycle and system boundaries; [safety](SAFETY.md) owns mutation policy.
+This document defines the planned, provider-neutral configuration concepts for Codenburg Dots. A minimal built-in software catalog and APT desired-present planner are implemented; no external configuration loader, serialization format, or final schema exists yet. The [architecture](ARCHITECTURE.md) owns lifecycle and system boundaries; [safety](SAFETY.md) owns mutation policy.
 
 ## Profiles and user choice
 
@@ -12,11 +12,15 @@ A logical software entry may expose multiple installation variants. For example,
 
 The intended v0.1 provider scope is APT (`apt-get`) and Flatpak/Flathub on Debian, Ubuntu, and Linux Mint. Flatpak is first class. Missing Flathub configuration may be added only as an explicit planned and confirmed mutation. The official Brave APT repository is a possible external repository requirement; such changes must also be explicit in the plan. Repository setup details and identifiers are not established here.
 
-Logical resources may depend on other resources. For example, a Neovim configuration requires Neovim. A future planner should resolve and explain automatically selected dependencies, while keeping user choices visible. There is no implementation of this behavior yet.
+The implemented catalog contains logical IDs `git`, `bash`, and `neovim`, with display names and explicit same-named APT package variants. `cdots plan <software-id>...` selects APT explicitly with no fallback. The resolver supports declared logical software dependencies in dependency-first order with deduplication and cycle/reference diagnostics; these built-in entries declare no dependencies. This in-memory model does not establish a final configuration schema.
+
+General resource dependencies remain planned. For example, a Neovim configuration could require Neovim; dotfile resources and their dependency handling are not implemented.
 
 ## Planned version and status information
 
-Where the provider can reliably supply it, a plan should expose:
+Current read-only plans show the selected APT provider/package, desired state `present`, installed and candidate versions (`unknown` when absent), and action `none`, `install`, `unavailable`, or `error`. Reliably installed software is `none` even without a candidate or with a newer one. These labels do not install or upgrade anything; unavailable packages and inspection failures retain entries with contextual diagnostics and a nonzero CLI exit.
+
+Beyond this implemented subset, where a future provider can reliably supply it, a plan should expose:
 
 | Information | Intended meaning |
 | --- | --- |

@@ -1,6 +1,6 @@
 # Intended architecture
 
-Codenburg Dots is planned as a provider-neutral Go monorepo application and catalog for managing selected Linux software and personal dotfiles. The repository currently implements a read-only CLI for system summaries and APT package inspection; see [README](../README.md) for current commands. This document defines intended architecture, not current executable behavior.
+Codenburg Dots is planned as a provider-neutral Go monorepo application and catalog for managing selected Linux software and personal dotfiles. The repository currently implements a read-only CLI for system summaries, APT package inspection, and desired-present software plans; see [README](../README.md) for current commands. Beyond that implemented subset, this document defines intended architecture.
 
 ## Intended management lifecycle
 
@@ -23,7 +23,8 @@ Detection, inspection, provider/dependency/version resolution, and planning are 
 
 - The core model is provider-neutral. Software is selected by logical catalog entry; provider-specific installation variants are explicit options, not hidden precedence rules.
 - The engine should express desired state declaratively and idempotently. When requested state is already satisfied, it should avoid unnecessary work.
-- Dependencies connect resources, such as a Neovim configuration requiring Neovim. The future planner should resolve and explain dependencies it selects; no resolver exists yet.
+- The implemented software resolver expands declared logical software dependencies before dependents, preserves declaration/request order, deduplicates IDs, and rejects cycles or invalid references. The built-in catalog contains git, bash, and neovim with explicit APT variants and no declared dependencies. General resource dependencies, such as a Neovim configuration requiring Neovim, remain future work.
+- The read-only planner reuses APT inspection and labels desired-present entries as none, install, unavailable, or error. Installed software needs no action even with a newer candidate; there is no upgrade action. Incomplete inspection plans retain ordered entries and contextual errors. Resolution/environment failures stop before package queries; there is no provider fallback.
 - Every mutation belongs in the displayed plan. Apply follows explicit confirmation, and verification follows application.
 - Package removal, user-file deletion, destructive cleanup, and silent overwrite are outside v0.x scope. See [Safety](SAFETY.md), the policy owner.
 - A future read-only `cdots discover` may inspect the distribution and architecture, available providers, known installed software and versions, known dotfiles, and unmanaged items where feasible. Discovery must not import, generate, or apply configuration.
