@@ -11,6 +11,7 @@
 - For accepted durable decisions (not proof of implemented capabilities), consult [ADR 0001 — monorepo](docs/adr/0001-monorepo-for-engine-and-configuration.md), [0002 — Go](docs/adr/0002-go-implementation.md), [0003 — declarative and idempotent model](docs/adr/0003-declarative-idempotent-model.md), [0004 — no destructive removal in v0.x](docs/adr/0004-no-destructive-removal-in-v0x.md), [0005 — Debian-family first](docs/adr/0005-debian-family-first.md), [0006 — user-controlled provider choice](docs/adr/0006-user-controlled-provider-choice.md), and [0007 — selective, symlink-first dotfiles](docs/adr/0007-selective-symlink-first-dotfiles.md).
 
 ## Mandatory workflows
+- For any Go coding, review, debugging, or setup task, first load [golang-how-to](.agents/skills/golang-how-to/SKILL.md) and use it to select and load the applicable installed Go skills; report missing skills rather than assuming they are available.
 - When planning or implementing system or file mutations, follow [docs/SAFETY.md](docs/SAFETY.md): inspection and planning are read-only; mutations require an explicit reviewable plan and confirmation; do not remove packages or delete user files in v0.x; report differing dotfiles and back up before replacement or modification. Keep selected providers visible and expose version data only when reliably available.
 - User-authorized tooling instruction (not product documentation): use CodeGraph structural/code graph tooling when useful; do not use Graphify.
 
