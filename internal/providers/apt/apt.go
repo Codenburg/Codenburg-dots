@@ -21,13 +21,21 @@ type Runner interface {
 type ExecRunner struct{}
 
 func (ExecRunner) Run(parent context.Context, name string, args ...string) (string, string, error) {
-	ctx, cancel := context.WithTimeout(parent, commandTimeout)
+	timeout := commandTimeout
+	if name == "apt-get" && len(args) > 0 && args[0] == "--simulate" {
+		timeout = simulationTimeout
+	}
+	ctx, cancel := context.WithTimeout(parent, timeout)
 	defer cancel()
 	cmd := exec.CommandContext(ctx, name, args...)
 	cmd.Env = cLocaleEnvironment()
-	var stdout, stderr strings.Builder
+	var stdout, stderr boundedOutput
 	cmd.Stdout, cmd.Stderr = &stdout, &stderr
+	cmd.WaitDelay = time.Second
 	err := cmd.Run()
+	if stdout.exceeded || stderr.exceeded {
+		err = errors.Join(err, errors.New("command output limit exceeded"))
+	}
 	if ctx.Err() != nil {
 		return stdout.String(), stderr.String(), fmt.Errorf("%s timed out: %w", name, ctx.Err())
 	}
@@ -124,21 +132,26 @@ func installedVersion(out string) (string, error) {
 	if status[1] != 'i' {
 		return "", nil
 	}
-	if fields[1] == "" {
-		return "", fmt.Errorf("installed status has no version")
+	if !versionToken.MatchString(fields[1]) {
+		return "", fmt.Errorf("installed status has missing or invalid version")
 	}
 	return fields[1], nil
 }
 
 func candidateVersion(policy string) (string, bool) {
+	candidate := ""
+	seen := false
 	for _, line := range strings.Split(policy, "\n") {
 		line = strings.TrimSpace(line)
 		if strings.HasPrefix(line, "Candidate:") {
-			candidate := strings.TrimSpace(strings.TrimPrefix(line, "Candidate:"))
-			return candidate, candidate != ""
+			if seen {
+				return "", false
+			}
+			seen = true
+			candidate = strings.TrimSpace(strings.TrimPrefix(line, "Candidate:"))
 		}
 	}
-	return "", false
+	return candidate, seen && (candidate == "(none)" || versionToken.MatchString(candidate))
 }
 func nonNone(s string) string {
 	if s == "(none)" {

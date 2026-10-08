@@ -59,26 +59,36 @@ func Run(args []string, stdout, stderr io.Writer, detector Detector, inspector P
 		}
 		result, err := plan.Build(context.Background(), catalog, desired, inspector)
 		return errors.Join(err, printPlan(stdout, result))
+	case "preflight":
+		if len(args) < 2 {
+			return fmt.Errorf("usage: cdots preflight <software-id>...")
+		}
+		return runPreflight(args[1:], stdout, detector, inspector, software.BuiltinCatalog())
 	default:
-		return fmt.Errorf("usage: cdots [system | package <name> | plan <software-id>...]")
+		return fmt.Errorf("usage: cdots [system | package <name> | plan <software-id>... | preflight <software-id>...]")
 	}
 }
 
 func requireAPT(detector Detector, inspector PackageInspector) error {
+	_, err := requireAPTSystem(detector, inspector)
+	return err
+}
+
+func requireAPTSystem(detector Detector, inspector PackageInspector) (system.Info, error) {
 	info, err := detector.Detect()
 	if err != nil {
-		return fmt.Errorf("detect system: %w", err)
+		return info, fmt.Errorf("detect system: %w", err)
 	}
 	if !info.Supported {
-		return fmt.Errorf("unsupported distribution %q (ID_LIKE: %s)", info.ID, info.IDLike)
+		return info, fmt.Errorf("unsupported distribution %q (ID_LIKE: %s)", info.ID, info.IDLike)
 	}
 	if !info.APTAvailable {
-		return fmt.Errorf("APT inspection requires dpkg-query, apt-cache, and dpkg in PATH")
+		return info, fmt.Errorf("APT inspection requires dpkg-query, apt-cache, and dpkg in PATH")
 	}
 	if inspector == nil {
-		return fmt.Errorf("APT package inspection is unavailable")
+		return info, fmt.Errorf("APT package inspection is unavailable")
 	}
-	return nil
+	return info, nil
 }
 
 func printPlan(w io.Writer, result plan.Plan) error {
