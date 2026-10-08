@@ -1,0 +1,277 @@
+{
+  "skill_name": "project-foundation-manager",
+  "evaluation_mode": "structural-only",
+  "notes": "These records describe observable contract expectations; no executable semantic or model harness is available, so evals are structural records only.",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Invoke `/project-foundation-manager init` for a tiny CLI with one entrypoint, a package manifest, and no durable documentation beyond a short README.",
+      "expected_output": "A minimum foundation proposal that avoids documentation explosion.",
+      "files": ["README.md", "package.json", "src/cli.ts"],
+      "expectations": [
+        "Profiles the project from executable and README evidence without treating the dependency list as capability proof",
+        "Keeps README.md as the entry/navigation source and marks unproven artifacts `NOT_NEEDED`",
+        "Does not propose architecture, API, database, observability, coding-style, or AI-guidelines files without demonstrated responsibility",
+        "Shows the exact approval table before any approved creation and creates only approved files",
+        "Before approval reports `Mode: init`, `Mutation: none`, and `Files changed: None`; after approved creation reports `Mode: init`, `Mutation: approved`, and repository-relative changed paths",
+        "Treats approval as a contractual runtime rule and does not add a mechanical helper; a helper is `NOT_NEEDED`"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Invoke `/project-foundation-manager audit` for a deployed multi-tenant SaaS with tenant-aware routes, a database schema, deployment configuration, operations runbooks, and external consumers.",
+      "expected_output": "A read-only profile and foundation matrix covering demonstrated tenancy, deployment, data, API, operations, and security responsibilities.",
+      "files": ["README.md", "docs/operations.md", "infra/deploy.yaml", "src/tenancy.ts", "src/routes/", "schema/"],
+      "expectations": [
+        "Classifies tenant isolation and security contracts as `NORMATIVE_CONTRACT` or `CURRENT_EXECUTABLE` according to the evidence",
+        "Recognizes external API consumers and deployed operations without inventing undocumented responsibilities",
+        "Reports `Mode: audit`, `Mutation: none`, and `Files changed: None` for the `audit` mode",
+        "Does not run the application, migrations, deployment, or any project script"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Run `/project-foundation-manager audit` when `tests/README.md` fully documents test layers, commands, fixtures, and boundaries, while `docs/testing.md` is absent.",
+      "expected_output": "A healthy testing foundation that avoids creating a duplicate `docs/testing.md`.",
+      "files": ["tests/README.md", "tests/", "package.json"],
+      "expectations": [
+        "Checks `tests/README.md` and equivalent sources before assessing `docs/testing.md`",
+        "Marks candidate `docs/testing.md` as `Need: NOT_NEEDED` and the established `tests/README.md` testing responsibility as `Health: HEALTHY` without proposing a duplicate",
+        "Identifies `tests/README.md` as the primary source and reports its update triggers and consumers",
+        "Remains strictly read-only and reports `Mode: audit`, `Mutation: none`, and `Files changed: None`"
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "Run `/project-foundation-manager audit` on a repository with a bloated `openspec/config.yaml`, overlapping context and rules, active changes, and no evidence that a second foundation document is needed.",
+      "expected_output": "A read-only OpenSpec configuration audit that reports overlap/overload and does not rewrite the config or copy active changes.",
+      "files": ["openspec/config.yaml", "openspec/changes/", "openspec/specs/", "openspec/changes/archive/"],
+      "expectations": [
+        "Detects the locally installed OpenSpec CLI and uses only locally help-confirmed read-only commands or direct file inspection",
+        "Audits duplicated documentation, excessive universal context, stale context, unsupported/invalid fields, and wrongly scoped artifact rules, classifying evidenced issues as `OVERLAPPING`, `OVERLOADED`, `BROKEN`, or `NEEDS_REVIEW`",
+        "Leaves `openspec/config.yaml` immutable in `audit`; `openspec/specs/**`, `openspec/changes/**`, and `openspec/changes/archive/**` stay always read-only in every mode: never create, modify, archive, apply, implement, or regenerate them; an `init`/`update` config edit is eligible only when the exact plan includes it, explicit approval exists, the installed version supports it, and post-edit OpenSpec validation succeeds",
+        "Treats `context` as cross-cutting workflow context and never copies it into `docs/architecture.md`",
+        "Does not copy active future changes into current durable documentation",
+        "Reports `Mode: audit`, `Mutation: none`, and `Files changed: None`"
+      ]
+    },
+    {
+      "id": 5,
+      "prompt": "Run `/project-foundation-manager audit` when a normative tenant-isolation spec requires tenant scoping but current executable code misses a tenant predicate on one query.",
+      "expected_output": "A contradiction report identifying `IMPLEMENTATION_DRIFT` without labeling the normative spec stale.",
+      "files": ["specs/tenant-isolation.md", "src/tenants/query.ts", "docs/security.md"],
+      "expectations": [
+        "Classifies the spec as `NORMATIVE_CONTRACT` and the query implementation as `CURRENT_EXECUTABLE`",
+        "Reports health `CONTRADICTORY` and finding `IMPLEMENTATION_DRIFT` for the affected responsibility",
+        "Does not mark the normative spec `STALE` merely because executable behavior is buggy",
+        "Treats `IMPLEMENTATION_DRIFT` as a finding subtype under `CONTRADICTORY`, never as a Health state",
+        "Leaves implementation and documentation unchanged and identifies the engineering follow-up without performing it",
+        "Reports `Mode: audit`, `Mutation: none`, and `Files changed: None`"
+      ]
+    },
+    {
+      "id": 6,
+      "prompt": "Run `/project-foundation-manager audit` when `docs/architecture.md` says Redis is the runtime cache, while current deployment/configuration and source evidence show the project uses a managed in-process cache instead.",
+      "expected_output": "A stale-documentation finding grounded in concrete current evidence.",
+      "files": ["docs/architecture.md", "config/cache.yaml", "src/cache.ts", "infra/runtime.yaml"],
+      "expectations": [
+        "Classifies current source/configuration as `CURRENT_EXECUTABLE`",
+        "Marks the Redis claim `STALE` with the exact current evidence paths and claim mismatch",
+        "Does not choose based only on newest-looking prose or delete the architecture document",
+        "Proposes a focused correction only in `init`/`update` after explicit approval",
+        "Reports `Mode: audit`, `Mutation: none`, and `Files changed: None`"
+      ]
+    },
+    {
+      "id": 7,
+      "prompt": "Run `/project-foundation-manager audit` when `CHANGELOG.md` records a historical Redis release, current behavior has changed, and no evidence proves whether the historical entry was later removed or superseded.",
+      "expected_output": "A report that preserves historical truth while investigating current-document drift separately.",
+      "files": ["CHANGELOG.md", "docs/architecture.md", "src/cache.ts", "git-history.txt"],
+      "expectations": [
+        "Classifies the changelog entry as `HISTORICAL_EVIDENCE`, never `PLANNING_EVIDENCE`, rather than stale current documentation",
+        "Keeps the historical entry intact and does not rewrite release history",
+        "Assesses the current architecture claim independently and uses `NEEDS_REVIEW` when removal/regression evidence is unresolved",
+        "Does not decide release/version/date/promotion lifecycle",
+        "Reports `Mode: audit`, `Mutation: none`, and `Files changed: None`"
+      ]
+    },
+    {
+      "id": 8,
+      "prompt": "Run `/project-foundation-manager audit` for a small internal tool with three internal routes, no external consumers, and no stable interface contract beyond source and tests.",
+      "expected_output": "A matrix that marks `docs/api.md` `NOT_NEEDED` without inventing an API manual.",
+      "files": ["src/routes.ts", "tests/routes.test.ts", "README.md"],
+      "expectations": [
+        "Confirms the absence of external consumers from repository evidence",
+        "Marks `docs/api.md` `NOT_NEEDED` and does not propose it solely because routes exist",
+        "Keeps current route behavior in its existing primary sources",
+        "Remains read-only and reports `Mode: audit`, `Mutation: none`, and `Files changed: None`"
+      ]
+    },
+    {
+      "id": 9,
+      "prompt": "Invoke `/project-foundation-manager init` when the only observability evidence is a future observability item in `ROADMAP.md`; there are no current metrics, dashboards, alerts, or operational consumers.",
+      "expected_output": "A minimum proposal that does not invent current observability architecture.",
+      "files": ["ROADMAP.md", "README.md", "src/"],
+      "expectations": [
+        "Classifies the roadmap item as `PLANNING_EVIDENCE`, not `HISTORICAL_EVIDENCE` or current architecture",
+        "Marks `docs/observability.md` `Need: NOT_NEEDED` because no current signals exist",
+        "Does not create a future metrics, dashboard, SLO, or alert design as durable current context",
+        "Reports the future work without deciding roadmap completion or release lifecycle",
+        "Before approval reports `Mode: init`, `Mutation: none`, and `Files changed: None`; after approved changes reports `Mode: init`, `Mutation: approved`, and repository-relative changed paths"
+      ]
+    },
+    {
+      "id": 10,
+      "prompt": "Run `/project-foundation-manager audit` when root `AGENTS.md` contains detailed setup and architecture prose duplicated by `docs/setup.md` and `docs/architecture.md`.",
+      "expected_output": "A read-only overlap/misplacement report with an `AGENTS_UPDATE_REQUIRED: yes` follow-up and no AGENTS.md edit.",
+      "files": ["AGENTS.md", "docs/setup.md", "docs/architecture.md", "README.md"],
+      "expectations": [
+        "Marks the duplicated responsibilities `OVERLAPPING` and/or `MISPLACED`",
+        "Recommends the focused docs as primary homes while preserving unique valid content before any consolidation",
+        "Emits exactly one `AGENTS_UPDATE_REQUIRED: yes` form with only `Evidence:`, `New/moved/removed sources:`, `Routing trigger:`, and `Suggested routing responsibility:`",
+        "Does not edit, adopt, create, invoke, or require `agents-md-manager`",
+        "Reports `Mode: audit`, `Mutation: none`, and `Files changed: None`"
+      ]
+    },
+    {
+      "id": 11,
+      "prompt": "Run `/project-foundation-manager update` when root `AGENTS.md` has a valid managed region and new evidence supports a durable `docs/billing.md` domain document.",
+      "expected_output": "A foundation update proposal that limits its own work to the approved domain artifact and reports any AGENTS routing need as follow-up only.",
+      "files": ["AGENTS.md", "docs/billing.md", "src/billing/", "README.md"],
+      "expectations": [
+        "Treats the valid managed AGENTS region as external evidence and does not mutate it",
+        "Creates or updates only the approved `docs/billing.md` action after explicit approval",
+        "Uses no shared metadata, ownership database, receipt, cache, or coupling manifest",
+        "Reports exactly one `AGENTS_UPDATE_REQUIRED` form: `no` with no detail fields, or `yes` followed only by the four required detail fields",
+        "Reports `Mode: update`, `Mutation: none`, and `Files changed: None` before approval; after approved mutation reports `Mode: update`, `Mutation: approved`, and repository-relative changed paths",
+        "Reports the flag only when new routing evidence exists, with no automatic invocation"
+      ]
+    },
+    {
+      "id": 12,
+      "prompt": "Run `/project-foundation-manager update` when a release documentation issue requires deciding whether to bump a version, add a date, and promote a `CHANGELOG.md` entry.",
+      "expected_output": "A delegated release follow-up with `DOCS_GUARDIAN_REVIEW_REQUIRED: yes` and no release mutation.",
+      "files": ["package.json", "CHANGELOG.md", "ROADMAP.md", "docs/deployment.md"],
+      "expectations": [
+        "Emits exact `DOCS_GUARDIAN_REVIEW_REQUIRED: yes` fields for evidence, affected lifecycle, review question, and owner",
+        "Does not decide bump, `NO_BUMP`, version, date, promotion, release entry, or roadmap completion",
+        "Does not invoke `docs-guardian` or mutate release files",
+        "Requires explicit approval for any separate foundation edit",
+        "Reports `Mode: update`, `Mutation: none`, and `Files changed: None` before approval; after approved foundation changes reports `Mode: update`, `Mutation: approved`, and repository-relative changed paths"
+      ]
+    },
+    {
+      "id": 13,
+      "prompt": "Run `/project-foundation-manager init` when an active OpenSpec change proposes future architecture, while current architecture is already documented and the change is not implemented.",
+      "expected_output": "A current foundation proposal that keeps the future architecture in OpenSpec and does not copy it into current durable docs.",
+      "files": ["openspec/changes/future-architecture/", "docs/architecture.md", "openspec/config.yaml"],
+      "expectations": [
+        "Classifies the active change as `PLANNING_EVIDENCE` and keeps the current v1 architecture documentation as the existing primary source",
+        "Does not create or rewrite `docs/architecture.md` with unimplemented future claims",
+        "Treats `openspec/specs/**`, `openspec/changes/**`, and `openspec/changes/archive/**` as always read-only in every mode: never creates, modifies, archives, applies, implements, regenerates, or copies them",
+        "Treats OpenSpec config as readable and auditable in every mode; an `init`/`update` config edit is eligible only when the exact plan includes it, explicit approval exists, the installed version supports it, and post-edit OpenSpec validation succeeds",
+        "Reports the boundary and any unresolved ownership as `NEEDS_REVIEW` rather than inventing current truth",
+        "Before approval reports `Mode: init`, `Mutation: none`, and `Files changed: None`; after approved changes reports `Mode: init`, `Mutation: approved`, and repository-relative changed paths"
+      ]
+    },
+    {
+      "id": 14,
+      "prompt": "Run `/project-foundation-manager audit` when Graphify output and a generated skill registry contain useful summaries but source README, configuration, and docs are available.",
+      "expected_output": "A source-grounded audit that treats generated outputs as advisory derived evidence only.",
+      "files": ["graphify-out/GRAPH_REPORT.md", ".atl/skill-registry.md", "README.md", "docs/architecture.md", "package.json"],
+      "expectations": [
+        "Classifies Graphify and registry artifacts as `GENERATED_DERIVED`",
+        "Uses source README/config/docs as primary authority when claims overlap",
+        "Does not run Graphify, refresh a registry, edit generated output, or create a second catalog",
+        "Reports any generated/source mismatch as a review finding rather than silently preferring generated text",
+        "Reports `Mode: audit`, `Mutation: none`, and `Files changed: None`"
+      ]
+    },
+    {
+      "id": 15,
+      "prompt": "Run `/project-foundation-manager audit` when `docs/security.md` summarizes security controls and `docs/tenancy.md` documents tenant lifecycle and ownership; both mention tenant data.",
+      "expected_output": "A healthy separation of security and domain responsibilities, not an overlap finding based only on shared vocabulary.",
+      "files": ["docs/security.md", "docs/tenancy.md", "src/tenancy/"],
+      "expectations": [
+        "Classifies explicit normative security controls as `NORMATIVE_CONTRACT` only when evidence supports the claim, classifies tenancy claims claim-by-claim, and does not use `security guidance` or `domain context` as pseudo-classes",
+        "Does not mark the documents `OVERLAPPING` merely because both mention tenants",
+        "Checks distinct responsibility, update triggers, consumers, and ownership before proposing consolidation",
+        "Keeps security architecture responsibility distinct from tenancy/domain lifecycle responsibility",
+        "Remains strictly read-only and reports `Mode: audit`, `Mutation: none`, and `Files changed: None`"
+      ]
+    },
+    {
+      "id": 16,
+      "prompt": "Run `/project-foundation-manager audit` when README, root AGENTS.md, project configuration, and `docs/architecture.md` all independently define the same architecture routing and commands, with no specialized architecture owner and repository conventions assigning responsibility to general maintainers.",
+      "expected_output": "An overlap report with a primary-home recommendation and an explicit external-owner follow-up for AGENTS.md.",
+      "files": ["README.md", "AGENTS.md", "project.config.json", "docs/architecture.md"],
+      "expectations": [
+        "Marks the duplicated responsibility `OVERLAPPING` and identifies the misplaced or cached copies",
+        "Recommends the primary source using concrete authority and consumer evidence, not newest-wins",
+        "Emits exactly one `AGENTS_UPDATE_REQUIRED: yes` form with only `Evidence:`, `New/moved/removed sources:`, `Routing trigger:`, and `Suggested routing responsibility:`",
+        "Uses `Owner: project maintainers` when no specialist exists and repository conventions clearly assign general maintainers responsibility; absence of a formal CODEOWNER alone does not imply `NEEDS_REVIEW`",
+        "Uses the exact seven Foundation ownership columns: `Responsibility`, `Primary source`, `Owner`, `Consumers`, `Creation condition`, `Update triggers`, and `Retirement condition`",
+        "Provides a value for every ownership column in every emitted row; unknown evidence is explicit `NEEDS_REVIEW` or brief uncertainty, never omission or invention",
+        "Rejects abbreviated ownership output and does not use the Foundation Matrix as a substitute for Foundation ownership",
+        "Retains the `Foundation ownership` heading and emits `None` when no ownership row is evidenced",
+        "Does not edit AGENTS.md, rewrite healthy docs, or change project configuration during `audit`",
+        "Reports `Mode: audit`, `Mutation: none`, and `Files changed: None`"
+      ]
+    },
+    {
+      "id": 17,
+      "prompt": "Run `/project-foundation-manager audit` when broken implementation evidence, failed test results, infrastructure drift, generated output, and an active change all point to work outside the durable documentation foundation.",
+      "expected_output": "A durable-only Foundation Matrix and a bounded report that routes implementation, test, infrastructure, generated, and active-change work outside the skill.",
+      "files": ["src/", "tests/", "infra/", "generated/", "openspec/changes/"],
+      "expectations": [
+        "Uses broken implementation/test evidence only as evidence or an external/out-of-scope follow-up, never as a Foundation Matrix row or candidate",
+        "Keeps infrastructure, generated artifacts, and active change artifacts out of Foundation Matrix rows/candidates and Proposed changes",
+        "Lists Proposed changes only when the action is a legal mutation within the skill's authority; approval does not broaden that authority",
+        "Reports the external/out-of-scope follow-up with a recommendation, evidence, external owner, and boundary reason"
+      ]
+    },
+    {
+      "id": 18,
+      "prompt": "Run `/project-foundation-manager audit` when an established stale durable OpenSpec baseline is the current source for a documented responsibility, while its correction belongs to the OpenSpec lifecycle.",
+      "expected_output": "A matrix that may cite the stale durable OpenSpec baseline but routes its correction externally without proposing a mutation to OpenSpec specs, changes, or archives.",
+      "files": ["openspec/specs/", "openspec/changes/", "openspec/changes/archive/", "openspec/config.yaml"],
+      "expectations": [
+        "Allows an established stale durable OpenSpec baseline with evidenced responsibility and consumer to appear as a Foundation Matrix source",
+        "Reports correction of that stale baseline as an external/out-of-scope follow-up, never as Proposed changes",
+        "Keeps `openspec/specs/**`, `openspec/changes/**`, and `openspec/changes/archive/**` read-only and never legal proposals",
+        "Preserves the conditional `openspec/config.yaml` exception without treating approval as permission to edit other OpenSpec artifacts"
+      ]
+    },
+    {
+      "id": 19,
+      "prompt": "Run `/project-foundation-manager audit` for two cases requiring independent Need and Health assessment of `docs/security.md` and root `SECURITY.md`. Case A: a private SaaS whose established internal auth/tenancy sources already adequately cover security architecture, with no public vulnerability-reporting workflow. Case B: internal security architecture has a material durable gap, with no public vulnerability-reporting workflow.",
+      "expected_output": "Two independently evaluated security contracts with distinct responsibilities, consumers, owners, Need states, and Health findings; Need may diverge between the contracts.",
+      "files": ["docs/security.md", "SECURITY.md"],
+      "expectations": [
+        "Assesses Need and Health independently for `docs/security.md` and root `SECURITY.md`; Need may diverge and `docs/security.md` is never auto-required",
+        "In Case A, expects `docs/security.md` Need `NOT_NEEDED` and `SECURITY.md` Need `NOT_NEEDED` because established internal sources adequately cover security architecture and no public vulnerability-reporting workflow is evidenced; assesses each Health independently",
+        "In Case B, expects `docs/security.md` Need `REQUIRED` or `RECOMMENDED` according to evidence and `SECURITY.md` Need `NOT_NEEDED`; does not fuse the assessments",
+        "Treats `docs/security.md` as internal security architecture/controls and `SECURITY.md` as public vulnerability-reporting policy, with separate responsibilities, consumers, and owners",
+        "Does not report overlap merely because both contracts use security vocabulary",
+        "Uses the durable-only matrix boundary and does not turn security implementation evidence into a matrix candidate or Proposed change"
+      ]
+    },
+    {
+      "id": 20,
+      "prompt": "Run `/project-foundation-manager update` for both factual-propagation branches. Branch A: a durable document contains a stale factual reference, the project's established authority makes the current fact unambiguous, and no lifecycle decision is required. Branch B: correcting a stale factual reference requires choosing a version, bump, `NO_BUMP`, release date, promotion, roadmap completion, or another lifecycle action.",
+      "expected_output": "A narrowly propagated factual correction when the guard passes without a lifecycle decision, or a review/delegation follow-up with no factual propagation when a lifecycle choice or unresolved ambiguity remains.",
+      "files": ["README.md", "docs/architecture.md", "package.json", "CHANGELOG.md", "ROADMAP.md"],
+      "expectations": [
+        "In Branch A, emits `DOCS_GUARDIAN_REVIEW_REQUIRED: no` and allows a legal stale foundation target to enter Proposed changes; mutation still requires an exact plan, Ask when available, explicit approval, and reapproval for a material plan change",
+        "In Branch B, emits `DOCS_GUARDIAN_REVIEW_REQUIRED: yes` and performs no factual propagation while choosing a version, bump, `NO_BUMP`, release date, promotion, roadmap completion, or another lifecycle decision",
+        "Preserves evidence neutrality: `CURRENT_EXECUTABLE` may establish or corroborate a fact but is not mandatory or universally superior to another project-defined authority",
+        "Uses `NEEDS_REVIEW` or specialized delegation when authority, the fact, or lifecycle ownership is ambiguous or conflicting, without silently propagating the claim",
+        "Derives final semantic regression only from the stabilized final emitted report, not intermediate reasoning, provisional or subagent output, or scratch state",
+        "Keeps evidence classifications, ownership, Matrix, findings, delegated flags, external follow-ups, Proposed changes, and verdict mutually consistent",
+        "Does not let a Matrix classification be contradicted by the semantic checklist or regression unless an explicit later transition and evidence are recorded",
+        "Reconciles pre-output contradictions before emission or marks the material uncertainty `NEEDS_REVIEW`",
+        "Never pairs a correct final report with `FAIL` derived from an intermediate, provisional, subagent, or scratch state"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,224 @@
+{
+  "skill_name": "agents-md-manager",
+  "evaluation_mode": "structural-only",
+  "notes": "These records describe observable contract expectations; they are not an executable semantic or model harness.",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Documented init: invoke `/agents-md-manager init` in a repository with no root AGENTS.md, a README.md, a package manifest, and a CI file.",
+      "expected_output": "A bounded init result that creates the root AGENTS.md managed region and reports its evidence-backed routes.",
+      "files": ["README.md", "package.json", ".github/workflows/ci.yml"],
+      "expectations": [
+        "Reports the initial state as ABSENT",
+        "Creates only the root AGENTS.md and exactly one managed marker pair",
+        "Routes existing high-signal sources without copying their prose or inventing commands",
+        "Does not create a manifest, helper, nested AGENTS.md, or generic skill catalog"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Invoke `/agents-md-manager update` in a foundation-style project with `docs/project-foundation.md`, a `foundation/` directory, and existing root AGENTS.md routing.",
+      "expected_output": "An update result that consumes relevant foundation-style evidence without taking foundation ownership.",
+      "files": ["AGENTS.md", "docs/project-foundation.md", "foundation/"],
+      "expectations": [
+        "Reads foundation-style files only when relevant to a route",
+        "Does not invoke or require project-foundation-manager",
+        "Mutates only a valid managed region in root AGENTS.md",
+        "Leaves foundation files and any metadata or shared state unchanged"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Invoke `/agents-md-manager init` in an ordinary repository with a README.md, package.json, task runner, and tests but no foundation files.",
+      "expected_output": "A normal evidence-based router with no foundation-specific dependency.",
+      "files": ["README.md", "package.json", "Makefile", "tests/"],
+      "expectations": [
+        "Uses ordinary repository evidence for routes and commands",
+        "Does not require a foundation file or manager",
+        "Persists no new metadata or context manifest",
+        "Creates only root AGENTS.md when it was absent"
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "Run `/agents-md-manager update` when an existing managed route points to `docs/old-architecture.md` and a docs index and Git evidence prove the source moved to `docs/architecture.md`.",
+      "expected_output": "An update that reports the stale pointer and routes the proven replacement.",
+      "files": ["AGENTS.md", "docs/index.md", "docs/architecture.md"],
+      "expectations": [
+        "Reports the old path as stale evidence",
+        "Uses the replacement only because repository evidence proves it",
+        "Does not guess among unrelated files",
+        "Changes only the managed region and preserves manual content outside it"
+      ]
+    },
+    {
+      "id": 5,
+      "prompt": "Run `/agents-md-manager audit` when a managed route points to `docs/missing.md` and no index, manifest, script, or source reference proves a replacement.",
+      "expected_output": "A read-only audit reporting a broken route with no replacement.",
+      "files": ["AGENTS.md", "docs/"],
+      "expectations": [
+        "Reports the missing source and absence of replacement evidence",
+        "Omits the broken route from any proposed guidance",
+        "States Files changed: None",
+        "Does not invent a path or mutate AGENTS.md"
+      ]
+    },
+    {
+      "id": 6,
+      "prompt": "Run `/agents-md-manager update` on a root AGENTS.md containing manual project instructions but no manager markers.",
+      "expected_output": "An UNMANAGED result that waits for explicit adoption approval.",
+      "files": ["AGENTS.md", "README.md"],
+      "expectations": [
+        "Classifies the file as UNMANAGED",
+        "Does not rewrite, wrap, normalize, or append a region without explicit approval",
+        "Preserves the manual file content and reports Files changed: None",
+        "Explains that adoption would add one managed region without deleting manual content"
+      ]
+    },
+    {
+      "id": 7,
+      "prompt": "Run `/agents-md-manager update` on a root AGENTS.md with a duplicated start marker, a missing end marker, or reversed markers.",
+      "expected_output": "A MALFORMED result that stops before mutation.",
+      "files": ["AGENTS.md"],
+      "expectations": [
+        "Classifies duplicate, missing, nested, or reversed markers as MALFORMED",
+        "Stops without changing any file even if adoption is requested",
+        "States Files changed: None",
+        "Reports the marker defect as the next repair action"
+      ]
+    },
+    {
+      "id": 8,
+      "prompt": "Run `/agents-md-manager audit` when `docs/runtime.md` claims one command and `README.md` claims an incompatible command, with no project-declared precedence.",
+      "expected_output": "A conflict report that withholds the uncertain command route.",
+      "files": ["AGENTS.md", "README.md", "docs/runtime.md"],
+      "expectations": [
+        "Emits CONFLICTING_CONTEXT",
+        "Names both repository-relative paths and both claims",
+        "Identifies the affected rule and missing precedence evidence",
+        "Omits uncertain guidance instead of selecting a favorite source",
+        "Remains read-only"
+      ]
+    },
+    {
+      "id": 9,
+      "prompt": "Run `/agents-md-manager update` in a repository containing many skill directories and a generated `.atl/skill-registry.md`.",
+      "expected_output": "A concise project-context router that does not reproduce the skill catalog.",
+      "files": ["AGENTS.md", ".atl/skill-registry.md", "skills/example/SKILL.md"],
+      "expectations": [
+        "Treats the registry and skill tree as generated or unrelated unless the task specifically concerns them",
+        "Does not enumerate generic skills or registry rows",
+        "Allows only a specific mandatory governance skill reference supported by project evidence",
+        "Does not edit the registry or create a second catalog"
+      ]
+    },
+    {
+      "id": 10,
+      "prompt": "Run `/agents-md-manager audit` in a repository with `.env` containing secrets, `.env.example`, and `docs/setup.md` documenting configuration.",
+      "expected_output": "A safe audit routing setup documentation without exposing environment values.",
+      "files": ["AGENTS.md", ".env", ".env.example", "docs/setup.md"],
+      "expectations": [
+        "Never reads, prints, copies, or persists values from .env",
+        "Routes to safe setup documentation or non-secret configuration declarations only",
+        "Does not add secrets or environment values to AGENTS.md",
+        "States Files changed: None"
+      ]
+    },
+    {
+      "id": 11,
+      "prompt": "Run `/agents-md-manager update` in a project with README.md, a docs index, current specs, ROADMAP.md, CHANGELOG.md, and archived proposals.",
+      "expected_output": "A selective router that distinguishes current contracts from situational and historical sources.",
+      "files": ["AGENTS.md", "README.md", "docs/index.md", "specs/feature.md", "ROADMAP.md", "CHANGELOG.md", "archive/proposal.md"],
+      "expectations": [
+        "Uses the docs index to select relevant current sources instead of dumping all Markdown",
+        "Treats ROADMAP and CHANGELOG as situational or historical unless the project explicitly says otherwise",
+        "Does not invent a universal precedence rule for specs",
+        "Preserves the one-region mutation boundary"
+      ]
+    },
+    {
+      "id": 12,
+      "prompt": "Run `/agents-md-manager audit` when `docs/source-precedence.md` explicitly says current code outranks specs and a spec conflicts with source code.",
+      "expected_output": "An audit that follows the project-declared precedence and reports the evidence path.",
+      "files": ["AGENTS.md", "docs/source-precedence.md", "src/behavior.ts", "specs/behavior.md"],
+      "expectations": [
+        "Recognizes and routes to the explicit precedence source",
+        "Uses the declared rule rather than inventing a manager precedence",
+        "Does not treat OpenCode loader behavior as project authority",
+        "Reports the affected evidence and keeps the result read-only"
+      ]
+    },
+    {
+      "id": 13,
+      "prompt": "Run `/agents-md-manager update` on a managed root AGENTS.md with manual text before and after the markers and a changed route inside the region.",
+      "expected_output": "An update with a preservation proof for the manual prefix and suffix.",
+      "files": ["AGENTS.md", "README.md", "package.json"],
+      "expectations": [
+        "Replaces only the managed-region interior",
+        "Proves the prefix through the start marker and suffix from the end marker onward remain byte-for-byte unchanged",
+        "Does not reorder, normalize, or rewrite manual content",
+        "Leaves exactly one ordered marker pair"
+      ]
+    },
+    {
+      "id": 14,
+      "prompt": "Run `/agents-md-manager update` in a project that has a `project-foundation-manager` skill, metadata files, a shared state directory, and a coupling manifest referenced by unrelated tooling.",
+      "expected_output": "A bounded update that ignores those manager integrations and uses only relevant project evidence.",
+      "files": ["AGENTS.md", "metadata/", ".shared-state/", "coupling-manifest.json", "project-foundation-manager/SKILL.md"],
+      "expectations": [
+        "Does not invoke or require project-foundation-manager",
+        "Does not read or mutate metadata, shared state, or a coupling manifest as manager state",
+        "Does not expand scope beyond root AGENTS.md",
+        "May consume an existing foundation-style document only as ordinary read-only evidence when relevant"
+      ]
+    },
+    {
+      "id": 15,
+      "prompt": "Invoke `/agents-md-manager update` twice in a safe MANAGED root when the relevant evidence, valid wording/order, and candidate payload are unchanged.",
+      "expected_output": "A structural idempotence result that performs no second write and reports the exact no-op labels.",
+      "files": ["AGENTS.md", "README.md", "package.json"],
+      "expectations": [
+        "Preserves current valid manager wording and order when meaning and evidence remain current",
+        "Reports `Mutation: none` and `Files changed: None` for the equivalent candidate",
+        "Does not perform a stylistic whole-region rewrite or alter bytes outside the managed payload",
+        "Keeps the conceptual section order only for applicable nonempty sections"
+      ]
+    },
+    {
+      "id": 16,
+      "prompt": "Invoke `/agents-md-manager update` on an UNMANAGED root, show a semantic adoption proposal, then provide explicit approval for this current workflow.",
+      "expected_output": "A structural adoption result that appends one managed block only after explicit approval and preserves the prior bytes as an exact prefix.",
+      "files": ["AGENTS.md", "README.md"],
+      "expectations": [
+        "Rejects or stops before mutation without the explicit current-workflow adoption approval",
+        "Requires the mechanical adoption approval input rather than treating generic earlier update wording as approval",
+        "Appends exactly one ordered marker pair and never rewrites, wraps, or normalizes prior bytes",
+        "Uses the deterministic minimum separator policy and reports preservation verification"
+      ]
+    },
+    {
+      "id": 17,
+      "prompt": "Run `/agents-md-manager audit` against roots whose fixed `AGENTS.md` target is respectively a symlink, directory, and available special/nonregular node.",
+      "expected_output": "A structural safety result that reports an internal unsafe-target finding without reading the target or inventing a fifth public lifecycle state.",
+      "files": ["AGENTS.md"],
+      "expectations": [
+        "Derives only `<root>/AGENTS.md` and rejects arbitrary target paths or escapes",
+        "Rejects symlink, directory, FIFO, socket, device, and other nonregular targets before reading them",
+        "Keeps ABSENT, MANAGED, UNMANAGED, and MALFORMED as the only public lifecycle states",
+        "Remains read-only and states `Mutation: none` and `Files changed: None`"
+      ]
+    },
+    {
+      "id": 18,
+      "prompt": "Invoke `/agents-md-manager update` on a MANAGED root using CRLF marker lines, mixed bytes, and trailing whitespace outside the managed payload.",
+      "expected_output": "A structural byte-preservation result that replaces only the payload and proves the exact prefix and suffix remain unchanged.",
+      "files": ["AGENTS.md"],
+      "expectations": [
+        "Treats exact LF or CRLF marker lines as valid without newline or encoding normalization",
+        "Preserves mixed bytes and all trailing whitespace outside the payload byte-for-byte",
+        "Defines payload as the exact bytes between marker text, including surrounding line-ending bytes",
+        "Leaves exactly one ordered marker pair and reports exact payload and prefix/suffix verification"
+      ]
+    }
+  ]
+}
