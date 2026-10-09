@@ -60,6 +60,17 @@ func printPreflight(
 	preview apt.Preview,
 	previewErr error,
 ) error {
+	return printTransaction(w, ids, resolved, preview, previewErr, false)
+}
+
+func printTransaction(
+	w io.Writer,
+	ids []string,
+	resolved []software.Resolved,
+	preview apt.Preview,
+	previewErr error,
+	forApply bool,
+) error {
 	// Build in memory so the only fallible output operation is checked once.
 	var b strings.Builder
 	fmt.Fprintf(&b, "Requested software: %s\nProvider: apt\n", strings.Join(sortedUnique(ids), ", "))
@@ -108,6 +119,10 @@ func printPreflight(
 		var block strings.Builder
 		fmt.Fprintf(&block, "\nOperation: %s\nPackage: %s\nSource: %s\nArchitecture: %s\nOld version: %s\nNew version: %s\nRisk: %s\n",
 			kind, display(op.Package), source, display(op.Architecture), display(op.OldVersion), display(op.NewVersion), display(risk))
+		if forApply {
+			printEvidence(&block, "Installed evidence", op.Installed)
+			printEvidence(&block, "Candidate evidence", op.Candidate)
+		}
 		for _, uncertainty := range op.Uncertainty {
 			fmt.Fprintf(&block, "Uncertainty: %s\n", uncertainty)
 		}
@@ -160,8 +175,12 @@ func printPreflight(
 		fmt.Fprintf(&b, "Diagnostic: %s\n", previewErr)
 	}
 	fmt.Fprintf(&b, "Overall status: %s\n", status)
-	fmt.Fprintln(&b, "Simulation is a snapshot, not execution authority. Execution is not implemented.")
-	fmt.Fprintln(&b, "No changes applied.")
+	if forApply {
+		fmt.Fprintln(&b, applyWarnings)
+	} else {
+		fmt.Fprintln(&b, "Simulation is a snapshot, not execution authority. Execution is not implemented.")
+		fmt.Fprintln(&b, "No changes applied.")
+	}
 	_, err := io.WriteString(w, b.String())
 	return err
 }

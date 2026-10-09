@@ -13,6 +13,29 @@ import (
 	"github.com/Codenburg/Codenburg-dots/internal/system"
 )
 
+const cliHelp = `Usage:
+  cdots system
+  cdots package <name>
+  cdots plan <software-id>...
+  cdots preflight <software-id>...
+  cdots apply <software-id>...
+
+System/package/plan/preflight are read-only. Apply resolves the built-in APT catalog.
+Satisfied desired-present requests are no-ops: no reinstall or automatic upgrade.
+Real changes require genuine stdin/stdout/stderr terminals and fresh typed approvals:
+  review <operation> <name>:<arch>  for each upgrade/high-risk nonremoval
+  remove <name>:<arch>            separately for each ordinary removal (version shown)
+  apply                          fresh general confirmation last
+Empty/no/EOF/malformed/mismatched answers cancel. Essential/Protected removals
+and unresolved metadata/holds/downgrades are forbidden, with no bypass.
+Native APT prompts retain the original operator stdin. No unattended flags,
+persisted approval, automatic retry or elevation; privileged reruns need fresh approvals.
+Execution supports only Linux/trusted-root/APT 2.6.1/known-default conservative
+configuration. Unsupported profiles fail closed. No atomicity or rollback promise.
+Apply exit codes: 0 verified success/no-action; 1 failure/partial; 130 cancellation.
+Usage/resolution/environment errors: 2.
+`
+
 type SystemInfo = system.Info
 type PackageInfo = packages.Info
 type Detector interface{ Detect() (system.Info, error) }
@@ -25,6 +48,11 @@ func Run(args []string, stdout, stderr io.Writer, detector Detector, inspector P
 		return printSystem(stdout, detector)
 	}
 	switch args[0] {
+	case "help", "--help", "-h":
+		_, err := io.WriteString(stdout, cliHelp)
+		return err
+	case "apply":
+		return fmt.Errorf("cdots apply requires the context-aware interactive entry point")
 	case "system":
 		if len(args) != 1 {
 			return fmt.Errorf("usage: cdots system")
@@ -65,7 +93,7 @@ func Run(args []string, stdout, stderr io.Writer, detector Detector, inspector P
 		}
 		return runPreflight(args[1:], stdout, detector, inspector, software.BuiltinCatalog())
 	default:
-		return fmt.Errorf("usage: cdots [system | package <name> | plan <software-id>... | preflight <software-id>...]")
+		return fmt.Errorf("usage: cdots [system | package <name> | plan <software-id>... | preflight <software-id>... | apply <software-id>...]")
 	}
 }
 
