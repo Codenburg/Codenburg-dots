@@ -234,7 +234,6 @@ func (r preflightRunner) Run(ctx context.Context, name string, args ...string) (
 func TestPreflightProviderReadOnlyAudit(t *testing.T) {
 	const command = "apt-get --simulate -o APT::Get::Simulate=true -o Debug::NoLocking=true -o APT::Get::AutomaticRemove=false -o APT::Get::Show-User-Simulation-Note=false install -- bash git neovim"
 	const output = "0 upgraded, 3 newly installed, 1 to remove and 0 not upgraded.\nRemv gone [1]\nInst git (2 Repo [amd64])\nInst neovim (2 Repo [amd64])\nInst lib (2 Repo [amd64])\nConf git (2 Repo [amd64])\nConf neovim (2 Repo [amd64])\nConf lib (2 Repo [amd64])\n"
-	const metadataFormat = "Package: ${Package}\\nArchitecture: ${Architecture}\\nVersion: ${Version}\\nStatus: ${Status}\\nEssential: ${Essential}\\nProtected: ${Protected}\\nConffiles: ${Conffiles}\\n\\n"
 	for _, tc := range []struct {
 		name       string
 		commandErr error
@@ -273,7 +272,7 @@ func TestPreflightProviderReadOnlyAudit(t *testing.T) {
 				case "apt-cache show -- git:amd64=2", "apt-cache show -- neovim:amd64=2", "apt-cache show -- lib:amd64=2":
 					pkg, _, _ := strings.Cut(strings.TrimSuffix(args[2], "=2"), ":")
 					return "Package: " + pkg + "\nArchitecture: amd64\nVersion: 2\nEssential: no\nProtected: no\n", "", nil
-				case "dpkg-query -W -f=" + metadataFormat + " -- gone":
+				case "dpkg-query --status -- gone":
 					return "Package: gone\nArchitecture: amd64\nVersion: 1\nStatus: install ok installed\nEssential: no\nProtected: no\nConffiles:\n", "", nil
 				default:
 					t.Fatalf("unexpected or mutating command: %s", key)

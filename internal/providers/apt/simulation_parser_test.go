@@ -90,7 +90,7 @@ func TestSimulationHeadingRiskIsPreserved(t *testing.T) {
 		t.Run(tc.name, func(t *testing.T) {
 			f := simulationFixture(tc.prefix + combined)
 			if tc.name == "essential agrees with metadata" {
-				f.results["dpkg-query -W -f="+metadataFormat+" -- gone"] = result{out: record("gone", "1", "Status: install ok installed\nEssential: yes\nProtected: no")}
+				f.results["dpkg-query --status -- gone"] = result{out: record("gone", "1", "Status: install ok installed\nEssential: yes\nProtected: no")}
 			}
 			got, err := New(f).Simulate(context.Background(), []string{"app", "old"})
 			if (err != nil) != tc.bad {

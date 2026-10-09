@@ -10,7 +10,6 @@ import (
 )
 
 const simCommand = "apt-get --simulate -o APT::Get::Simulate=true -o Debug::NoLocking=true -o APT::Get::AutomaticRemove=false -o APT::Get::Show-User-Simulation-Note=false install -- app old"
-const metadataFormat = "Package: ${Package}\\nArchitecture: ${Architecture}\\nVersion: ${Version}\\nStatus: ${Status}\\nEssential: ${Essential}\\nProtected: ${Protected}\\nConffiles: ${Conffiles}\\n\\n"
 
 func record(name, version, flags string) string {
 	return "Package: " + name + "\nArchitecture: amd64\nVersion: " + version + "\n" + flags + "\n"
@@ -20,15 +19,15 @@ func simulationFixture(out string) *fakeRunner {
 		"dpkg-query -W -f=${db:Status-Abbrev}\\t${Version}\\n -- app": {stderr: "dpkg-query: no packages found matching app", err: commandError(1)},
 		"apt-cache policy app": {out: "Candidate: 2\n"},
 		"dpkg-query -W -f=${db:Status-Abbrev}\\t${Version}\\n -- old": {out: "ii \t1\n"},
-		"apt-cache policy old":                                 {out: "Candidate: 2\n"},
-		"dpkg --compare-versions 1 ge 2":                       {err: commandError(1)},
-		"dpkg --print-architecture":                            {out: "amd64\n"},
-		simCommand:                                             {out: out},
-		"apt-cache show -- app:amd64=2":                        {out: record("app", "2", "Essential: no\nProtected: no")},
-		"apt-cache show -- dep:amd64=2":                        {out: record("dep", "2", "Essential: no\nProtected: no")},
-		"apt-cache show -- old:amd64=2":                        {out: record("old", "2", "Essential: no\nProtected: no")},
-		"dpkg-query -W -f=" + metadataFormat + " -- old:amd64": {out: record("old", "1", "Status: install ok installed\nEssential: no\nProtected: no\nConffiles:")},
-		"dpkg-query -W -f=" + metadataFormat + " -- gone":      {out: record("gone", "1", "Status: install ok installed\nEssential: no\nProtected: no\nConffiles:")},
+		"apt-cache policy old":             {out: "Candidate: 2\n"},
+		"dpkg --compare-versions 1 ge 2":   {err: commandError(1)},
+		"dpkg --print-architecture":        {out: "amd64\n"},
+		simCommand:                         {out: out},
+		"apt-cache show -- app:amd64=2":    {out: record("app", "2", "Essential: no\nProtected: no")},
+		"apt-cache show -- dep:amd64=2":    {out: record("dep", "2", "Essential: no\nProtected: no")},
+		"apt-cache show -- old:amd64=2":    {out: record("old", "2", "Essential: no\nProtected: no")},
+		"dpkg-query --status -- old:amd64": {out: record("old", "1", "Status: install ok installed\nEssential: no\nProtected: no\nConffiles:")},
+		"dpkg-query --status -- gone":      {out: record("gone", "1", "Status: install ok installed\nEssential: no\nProtected: no\nConffiles:")},
 	}}
 }
 
@@ -172,7 +171,7 @@ func TestSimulateCommandFailureRetainsDiagnostics(t *testing.T) {
 }
 
 func TestSimulateMetadataRisk(t *testing.T) {
-	key := "dpkg-query -W -f=" + metadataFormat + " -- gone"
+	key := "dpkg-query --status -- gone"
 	for _, tc := range []struct {
 		name, flags string
 		unresolved  bool
@@ -181,8 +180,8 @@ func TestSimulateMetadataRisk(t *testing.T) {
 		{name: "essential", flags: "Status: install ok installed\nEssential: yes\nProtected: no", risk: "high"},
 		{name: "protected", flags: "Status: install ok installed\nEssential: no\nProtected: yes", risk: "high"},
 		{name: "configuration sensitive", flags: "Status: install ok installed\nEssential: no\nProtected: no\nConffiles: /etc/example hash", risk: "review-required"},
-		{name: "unknown", flags: "Status: install ok installed\nEssential: no", unresolved: true, risk: "review-required"},
-		{name: "high despite unknown", flags: "Status: install ok installed\nEssential: yes", unresolved: true, risk: "high"},
+		{name: "unknown", flags: "Status: install ok installed\nEssential: no\nProtected:", unresolved: true, risk: "review-required"},
+		{name: "high despite unknown", flags: "Status: install ok installed\nEssential: yes\nProtected: invalid", unresolved: true, risk: "high"},
 		{name: "partial state", flags: "Status: install ok unpacked\nEssential: no\nProtected: no", unresolved: true, risk: "review-required"},
 		{name: "conflicting flag", flags: "Status: install ok installed\nEssential: no\nEssential: yes\nProtected: no", unresolved: true, risk: "high"},
 	} {
@@ -291,7 +290,7 @@ func TestSimulateInspectionAmbiguityAndFailureRetainsDiagnostics(t *testing.T) {
 }
 
 func TestSimulateNewCriticalAndUnknownMetadata(t *testing.T) {
-	for _, flags := range []string{"Essential: yes\nProtected: no", "Essential: no"} {
+	for _, flags := range []string{"Essential: yes\nProtected: no", "Essential: no\nProtected:"} {
 		f := simulationFixture(combined)
 		f.results["apt-cache show -- app:amd64=2"] = result{out: record("app", "2", flags)}
 		got, err := New(f).Simulate(context.Background(), []string{"app", "old"})
@@ -312,7 +311,7 @@ func TestSimulateStandaloneConfiguration(t *testing.T) {
 	f.results["dpkg-query -W -f=${db:Status-Abbrev}\\t${Version}\\n -- old"] = result{out: "ii \t2\n"}
 	f.results["apt-cache policy old"] = result{out: "Candidate: 3\n"}
 	f.results["dpkg --compare-versions 2 ge 3"] = result{err: commandError(1)}
-	f.results["dpkg-query -W -f="+metadataFormat+" -- old:amd64"] = result{out: record("old", "2", "Status: install ok installed\nEssential: no\nProtected: no\nConffiles: /etc/example hash")}
+	f.results["dpkg-query --status -- old:amd64"] = result{out: record("old", "2", "Status: install ok installed\nEssential: no\nProtected: no\nConffiles: /etc/example hash")}
 	got, err := New(f).Simulate(context.Background(), []string{"old"})
 	if err != nil || len(got.Operations) != 1 || got.Operations[0].Kind != "configuration" || got.Operations[0].Risk != "review-required" {
 		t.Fatalf("%+v %v", got, err)
@@ -321,7 +320,7 @@ func TestSimulateStandaloneConfiguration(t *testing.T) {
 
 func TestSimulateRemovedMultiarchAmbiguity(t *testing.T) {
 	f := simulationFixture(combined)
-	f.results["dpkg-query -W -f="+metadataFormat+" -- gone"] = result{out: record("gone", "1", "Status: install ok installed\nEssential: no\nProtected: no") + "\n" + strings.Replace(record("gone", "1", "Status: install ok installed\nEssential: yes\nProtected: no"), "amd64", "arm64", 1)}
+	f.results["dpkg-query --status -- gone"] = result{out: record("gone", "1", "Status: install ok installed\nEssential: no\nProtected: no") + "\n" + strings.Replace(record("gone", "1", "Status: install ok installed\nEssential: yes\nProtected: no"), "amd64", "arm64", 1)}
 	got, err := New(f).Simulate(context.Background(), []string{"app", "old"})
 	if err == nil || !got.Unresolved || len(got.Operations) == 0 || got.Operations[0].Architecture != "" {
 		t.Fatalf("%+v %v", got, err)

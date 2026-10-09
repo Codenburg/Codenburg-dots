@@ -23,6 +23,18 @@ type Operation struct {
 	Requested                                           bool
 	Risk                                                string
 	Uncertainty                                         []string
+	Installed, Candidate                                PackageEvidence
+}
+
+// PackageEvidence binds safety fields to one package/version/architecture record.
+// Known requires a successful query and a single valid record, not merely absent
+// flags. Status and Held describe installed state only; candidate flags must not
+// replace installed protection evidence. Values are comparable for revalidation.
+type PackageEvidence struct {
+	Package, Architecture, Version string
+	Known, Essential, Protected    bool
+	Status                         string
+	Held                           bool
 }
 
 // Preview is snapshot evidence, never authorization to execute a transaction.
@@ -224,6 +236,14 @@ func (p *Provider) Simulate(parent context.Context, names []string) (Preview, er
 				op.Uncertainty = append(op.Uncertainty, conflict.Error())
 				issues = append(issues, conflict)
 			}
+			if old {
+				op.Installed = m.evidence
+			} else {
+				op.Candidate = m.evidence
+			}
+			if m.evidence.Known && m.evidence.Held {
+				op.Risk = maxReviewRisk(op.Risk)
+			}
 			if m.critical {
 				op.Risk = "high"
 			}
@@ -251,6 +271,8 @@ func (p *Provider) Simulate(parent context.Context, names []string) (Preview, er
 						op.Risk = other.Risk
 					}
 					op.Uncertainty = append(op.Uncertainty, other.Uncertainty...)
+					op.Installed = other.Installed
+					op.Candidate = other.Candidate
 				}
 			}
 			if !paired {
