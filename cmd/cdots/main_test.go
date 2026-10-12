@@ -42,6 +42,8 @@ func TestMainSelectsApplyOnlyBackend(t *testing.T) {
 		{name: "help", args: []string{"--help"}},
 		{name: "package", args: []string{"package", "bash"}},
 		{name: "plan", args: []string{"plan", "bash"}},
+		{name: "flatpak plan", args: []string{"plan", "--provider=flatpak", "firefox"}},
+		{name: "flatpak inventory", args: []string{"flatpak"}},
 		{name: "preflight", args: []string{"preflight", "bash"}},
 		{name: "system", args: []string{"system"}},
 		{name: "empty"},
@@ -52,6 +54,31 @@ func TestMainSelectsApplyOnlyBackend(t *testing.T) {
 			provider := commandProvider(tc.args, func() *apt.Provider { calls++; return selected })
 			if (calls == 1) != tc.apply || (provider == selected) != tc.apply {
 				t.Fatal("main did not select the apply-only factory")
+			}
+		})
+	}
+}
+
+func TestMainRejectsFlatpakSelectionsBeforeToolDetection(t *testing.T) {
+	for _, tc := range []struct {
+		name string
+		args []string
+		want string
+	}{
+		{name: "explicit choice", args: []string{"plan", "firefox"}, want: "explicit --provider"},
+		{name: "catalog conflict", args: []string{"plan", "--provider=flatpak", "--remote=other", "firefox"}, want: "no matching Flatpak variant"},
+		{name: "inventory filters", args: []string{"flatpak", "--remote=flathub"}, want: "require an application ID"},
+	} {
+		t.Run(tc.name, func(t *testing.T) {
+			args := append([]string{"-test.run=^TestMainDispatchHelper$", "--"}, tc.args...)
+			cmd := exec.Command(os.Args[0], args...)
+			// An empty executable search path proves invalid requests do not
+			// reach production Flatpak/Bubblewrap detection. No host inspection.
+			cmd.Env = []string{"PATH="}
+			output, err := cmd.CombinedOutput()
+			var exit *exec.ExitError
+			if !errors.As(err, &exit) || exit.ExitCode() != 2 || !strings.Contains(string(output), tc.want) || strings.Contains(string(output), "inspection unavailable") {
+				t.Fatalf("invalid selection dispatch: %v %s", err, output)
 			}
 		})
 	}

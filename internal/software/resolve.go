@@ -16,8 +16,11 @@ var (
 // order and returning each logical ID once. Errors discard any partial result.
 // It performs no host/tooling checks and never falls back to another provider.
 func Resolve(catalog Catalog, desired Desired) ([]Resolved, error) {
-	if desired.Provider != APT {
-		return nil, fmt.Errorf("unsupported provider %q: only APT resolution is supported", desired.Provider)
+	if desired.Provider != APT && desired.Provider != Flatpak {
+		return nil, fmt.Errorf("unsupported provider %q", desired.Provider)
+	}
+	if err := validateFilters(desired); err != nil {
+		return nil, err
 	}
 	const (
 		visiting = 1
@@ -42,7 +45,12 @@ func Resolve(catalog Catalog, desired Desired) ([]Resolved, error) {
 		if err != nil {
 			return err
 		}
-		variant, err := aptVariant(entry)
+		var variant Variant
+		if desired.Provider == Flatpak {
+			variant, err = flatpakVariant(entry, desired)
+		} else {
+			variant, err = aptVariant(entry)
+		}
 		if err != nil {
 			return err
 		}
@@ -73,7 +81,7 @@ func aptVariant(entry Software) (Variant, error) {
 		if !providerName.MatchString(string(variant.Provider)) {
 			return Variant{}, fmt.Errorf("software %q has invalid variant provider %q", entry.ID, variant.Provider)
 		}
-		if seen[variant.Provider] {
+		if seen[variant.Provider] && variant.Provider != Flatpak {
 			return Variant{}, fmt.Errorf("software %q has duplicate variant provider %q", entry.ID, variant.Provider)
 		}
 		seen[variant.Provider] = true

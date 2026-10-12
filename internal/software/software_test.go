@@ -32,15 +32,15 @@ func TestBuiltinCatalogLookup(t *testing.T) {
 			}
 		})
 	}
-	if len(catalog) != 3 {
-		t.Fatalf("catalog has %d entries; want 3", len(catalog))
+	if len(catalog) != 4 {
+		t.Fatalf("catalog has %d entries; want 4", len(catalog))
 	}
 	// A caller's catalog edits must not change future built-in catalogs.
 	entry := catalog["git"]
 	entry.Variants[0].Identifier = "changed"
 	delete(catalog, "bash")
 	fresh := BuiltinCatalog()
-	if fresh["git"].Variants[0].Identifier != "git" || len(fresh) != 3 {
+	if fresh["git"].Variants[0].Identifier != "git" || len(fresh) != 4 {
 		t.Fatal("built-in catalog shared mutable state")
 	}
 }
@@ -147,7 +147,7 @@ func TestResolveVariants(t *testing.T) {
 		{"APT after future variant", []Variant{future, {Provider: APT, Identifier: "app"}}, APT, ""},
 		{"missing variant", nil, APT, `software "app" has no APT variant`},
 		{"no fallback", []Variant{future}, APT, `software "app" has no APT variant`},
-		{"unsupported provider", []Variant{future}, Provider("flatpak"), `unsupported provider "flatpak"`},
+		{"unsupported provider", []Variant{future}, Provider("snap"), `unsupported provider "snap"`},
 		{"provider not explicit", []Variant{{Provider: APT, Identifier: "app"}}, "", `unsupported provider ""`},
 		{"missing variant provider", []Variant{{Identifier: "app"}}, APT, "invalid variant provider"},
 		{"invalid variant provider", []Variant{{Provider: "apt cache", Identifier: "app"}}, APT, "invalid variant provider"},
@@ -213,9 +213,16 @@ func TestResolveDependencyVariantAndEmptySelection(t *testing.T) {
 	if err != nil || len(got) != 0 {
 		t.Fatalf("empty selection: result = %+v, error = %v", got, err)
 	}
-	_, err = Resolve(nil, Desired{Provider: Provider("flatpak")})
+	_, err = Resolve(nil, Desired{Provider: Provider("snap")})
 	if err == nil || !strings.Contains(err.Error(), "unsupported provider") {
 		t.Fatalf("unsupported provider accepted for empty selection: %v", err)
+	}
+}
+
+func TestResolveExplicitFlatpak(t *testing.T) {
+	got, err := Resolve(BuiltinCatalog(), Desired{IDs: []string{"firefox"}, Provider: Provider("flatpak")})
+	if err != nil || len(got) != 1 || got[0].Variant.Identifier != "org.mozilla.firefox" {
+		t.Fatalf("explicit Flatpak mapping: result %+v, error %v", got, err)
 	}
 }
 

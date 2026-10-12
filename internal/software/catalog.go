@@ -39,6 +39,14 @@ func BuiltinCatalog() Catalog {
 			ID: "bash", Name: "Bash",
 			Variants: []Variant{{Provider: APT, Identifier: "bash"}},
 		},
+		// Mapping only: installation availability requires configured remote/cache evidence.
+		"firefox": {
+			ID: "firefox", Name: "Firefox",
+			Variants: []Variant{
+				{Provider: APT, Identifier: "firefox-esr"},
+				{Provider: Flatpak, Identifier: "org.mozilla.firefox", Remote: "flathub", Branch: "stable"},
+			},
+		},
 		"neovim": {
 			ID: "neovim", Name: "Neovim",
 			Variants: []Variant{{Provider: APT, Identifier: "neovim"}},

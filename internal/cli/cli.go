@@ -2,7 +2,6 @@ package cli
 
 import (
 	"context"
-	"errors"
 	"fmt"
 	"io"
 	"strings"
@@ -16,7 +15,16 @@ import (
 const cliHelp = `Usage:
   cdots system
   cdots package <name>
-  cdots plan <software-id>...
+  cdots plan <software-id>...                       (APT-only catalog selections)
+  cdots plan --provider=apt <software-id>...
+  cdots plan --provider=flatpak [filters] <software-id>...
+  cdots flatpak [--scope=user|system|installation:NAME]
+  cdots flatpak [filters] <application-id>
+
+Flatpak filters: --scope=user|system|installation:NAME --remote=NAME --arch=ARCH --branch=BRANCH
+Flags must precede IDs. Alternative providers (including dependencies) require explicit
+--provider. Flatpak is read-only; no apply. Empty scope observes user + default-system.
+Candidate versions are cached observations, possibly unknown/stale, not install guarantees.
   cdots preflight <software-id>...
   cdots apply <software-id>...
 
@@ -71,22 +79,8 @@ func Run(args []string, stdout, stderr io.Writer, detector Detector, inspector P
 		}
 		_, err = fmt.Fprintf(stdout, "Package: %s\nStatus: %s\nInstalled version: %s\nCandidate version: %s\n", pkg.Name, pkg.Status, display(pkg.InstalledVersion), display(pkg.CandidateVersion))
 		return err
-	case "plan":
-		if len(args) < 2 {
-			return fmt.Errorf("usage: cdots plan <software-id>...")
-		}
-		catalog := software.BuiltinCatalog()
-		desired := software.Desired{IDs: args[1:], Provider: software.APT}
-		// Validate logical selection before host checks so an unknown ID remains
-		// actionable even on an unsupported host. Build also enforces resolution.
-		if _, err := software.Resolve(catalog, desired); err != nil {
-			return fmt.Errorf("resolve plan: %w", err)
-		}
-		if err := requireAPT(detector, inspector); err != nil {
-			return err
-		}
-		result, err := plan.Build(context.Background(), catalog, desired, inspector)
-		return errors.Join(err, printPlan(stdout, result))
+	case "plan", "flatpak":
+		return RunReadOnly(context.Background(), args, stdout, stderr, detector, inspector, nil)
 	case "preflight":
 		if len(args) < 2 {
 			return fmt.Errorf("usage: cdots preflight <software-id>...")

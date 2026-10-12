@@ -9,6 +9,7 @@ import (
 
 	"github.com/Codenburg/Codenburg-dots/internal/cli"
 	"github.com/Codenburg/Codenburg-dots/internal/providers/apt"
+	"github.com/Codenburg/Codenburg-dots/internal/providers/flatpak"
 	"github.com/Codenburg/Codenburg-dots/internal/system"
 )
 
@@ -24,7 +25,13 @@ func main() {
 	defer stop()
 	provider := commandProvider(os.Args[1:], apt.NewApplyProvider)
 	executor := apt.NewExecutor(provider, os.Stdin, os.Stdout, os.Stderr)
-	if err := cli.RunInteractive(ctx, os.Args[1:], os.Stdin, os.Stdout, os.Stderr, systemDetector{}, provider, executor); err != nil {
+	var err error
+	if len(os.Args) > 1 && os.Args[1] == "apply" {
+		err = cli.RunInteractive(ctx, os.Args[1:], os.Stdin, os.Stdout, os.Stderr, systemDetector{}, provider, executor)
+	} else {
+		err = cli.RunReadOnly(ctx, os.Args[1:], os.Stdout, os.Stderr, systemDetector{}, provider, newFlatpakInspector)
+	}
+	if err != nil {
 		fmt.Fprintln(os.Stderr, "cdots:", err)
 		os.Exit(cli.ExitCode(err))
 	}
@@ -37,6 +44,15 @@ func commandProvider(args []string, newApply func() *apt.Provider) *apt.Provider
 		return newApply()
 	}
 	return apt.New(apt.ExecRunner{})
+}
+
+// Detection is deferred until the CLI validates a Flatpak read-only selection.
+func newFlatpakInspector() (cli.FlatpakInspector, error) {
+	runner, err := flatpak.NewExecRunner()
+	if err != nil {
+		return nil, err
+	}
+	return flatpak.New(runner), nil
 }
 
 type systemDetector struct{}

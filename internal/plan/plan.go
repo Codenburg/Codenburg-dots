@@ -60,6 +60,16 @@ func Build(ctx context.Context, catalog software.Catalog, desired software.Desir
 	if err != nil {
 		return Plan{}, fmt.Errorf("resolve plan: %w", err)
 	}
+	// This is the APT-only boundary used by apply/preflight callers. Reject the
+	// entire non-APT selection before making even one inspector call.
+	for _, item := range resolved {
+		if item.Variant.Provider != software.APT {
+			return Plan{}, fmt.Errorf("APT plan cannot inspect provider %q", item.Variant.Provider)
+		}
+	}
+	if desired.Provider != software.APT {
+		return Plan{}, fmt.Errorf("APT plan requires the APT provider")
+	}
 	if inspector == nil {
 		return Plan{}, errors.New("plan requires an inspector")
 	}
