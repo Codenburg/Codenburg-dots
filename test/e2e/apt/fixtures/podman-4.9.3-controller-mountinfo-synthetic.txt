@@ -1,0 +1,3 @@
+# SYNTHETIC controller coordinate fixture; NOT an actual controller snapshot.
+1 99 8:1 / / rw,relatime - ext4 /dev/synthetic rw
+2 1 0:59 / /run/user/1000 rw,nosuid,nodev,relatime - tmpfs tmpfs rw,size=794756k,mode=700,uid=1000,gid=1000

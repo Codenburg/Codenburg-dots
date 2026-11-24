@@ -1,0 +1,57 @@
+[
+  {
+    "Annotations": {},
+    "Architecture": "amd64",
+    "Author": "",
+    "Comment": "debuerreotype 0.17",
+    "Config": {
+      "Cmd": [
+        "bash"
+      ],
+      "Env": [
+        "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+      ]
+    },
+    "Created": "2026-10-05T00:00:00Z",
+    "Digest": "sha256:2c037a04925515fdd6ea85ea14a682d0e79931f5e9f5d07b6dbfc6ba12f9e858",
+    "GraphDriver": {
+      "Data": {
+        "UpperDir": "/home/ace/.local/share/containers/storage/overlay/6439a9e3affca36e4cc323dd241724b62721af4a3f4aa590ced4ae11f8083a4b/diff",
+        "WorkDir": "/home/ace/.local/share/containers/storage/overlay/6439a9e3affca36e4cc323dd241724b62721af4a3f4aa590ced4ae11f8083a4b/work"
+      },
+      "Name": "overlay"
+    },
+    "History": [
+      {
+        "comment": "debuerreotype 0.17",
+        "created": "2026-10-05T00:00:00Z",
+        "created_by": "# debian.sh --arch 'amd64' out/ 'bookworm' '@1791158400'"
+      }
+    ],
+    "Id": "94926f0fd968cd68ac486502185a5dd78687874a9ec7727f64fe2af696e28311",
+    "Labels": null,
+    "ManifestType": "application/vnd.oci.image.manifest.v1+json",
+    "NamesHistory": [
+      "docker.io/library/debian:bookworm"
+    ],
+    "Os": "linux",
+    "Parent": "",
+    "RepoDigests": [
+      "docker.io/library/debian@sha256:2c037a04925515fdd6ea85ea14a682d0e79931f5e9f5d07b6dbfc6ba12f9e858",
+      "docker.io/library/debian@sha256:bc49dc1918ee1a47a93e65b5e4676e8680fb754b133197b92ca52bfe6731d5f0"
+    ],
+    "RepoTags": [
+      "docker.io/library/debian:bookworm"
+    ],
+    "RootFS": {
+      "Layers": [
+        "sha256:6439a9e3affca36e4cc323dd241724b62721af4a3f4aa590ced4ae11f8083a4b"
+      ],
+      "Type": "layers"
+    },
+    "Size": 242859961,
+    "User": "",
+    "Version": "",
+    "VirtualSize": 242859961
+  }
+]

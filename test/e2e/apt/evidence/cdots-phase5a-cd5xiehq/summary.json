@@ -1,0 +1,11 @@
+{
+  "cleanup_errors": [],
+  "container": "5d0eccc3d5e422bde34475e812593fb55303f3ef9fbea7128fb7637cafef6e62",
+  "digest": "sha256:2c037a04925515fdd6ea85ea14a682d0e79931f5e9f5d07b6dbfc6ba12f9e858",
+  "error": "unexpected container environment",
+  "evidence_errors": [],
+  "image": "94926f0fd968cd68ac486502185a5dd78687874a9ec7727f64fe2af696e28311",
+  "mode": "probe-only",
+  "status": "failure",
+  "stopped_verified": true
+}

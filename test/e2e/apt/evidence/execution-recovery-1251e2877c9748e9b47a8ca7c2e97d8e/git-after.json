@@ -1,0 +1,64 @@
+[
+  {
+    "argv": [
+      "git",
+      "branch",
+      "--show-current"
+    ],
+    "rc": 0,
+    "stdout": "feat/phase5-apt-e2e\n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "git",
+      "rev-parse",
+      "HEAD"
+    ],
+    "rc": 0,
+    "stdout": "23a6e9ee423fd22eb95da64fa0bee63dee59614c\n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "git",
+      "diff",
+      "--stat"
+    ],
+    "rc": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "git",
+      "diff",
+      "--cached",
+      "--stat"
+    ],
+    "rc": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "git",
+      "status",
+      "--short"
+    ],
+    "rc": 0,
+    "stdout": "?? odd/tasks/phase5a-apt-e2e.md\n?? test/\n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "git",
+      "check-ignore",
+      "test/e2e/apt/evidence/execution-recovery-1251e2877c9748e9b47a8ca7c2e97d8e",
+      "test/e2e/apt/evidence/cdots-phase5a-cd5xiehq"
+    ],
+    "rc": 0,
+    "stdout": "test/e2e/apt/evidence/execution-recovery-1251e2877c9748e9b47a8ca7c2e97d8e\ntest/e2e/apt/evidence/cdots-phase5a-cd5xiehq\n",
+    "stderr": ""
+  }
+]

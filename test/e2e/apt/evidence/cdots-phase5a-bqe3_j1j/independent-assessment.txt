@@ -1,0 +1,24 @@
+Independent read-only assessment by gentle-ai-verify, task mv5s50o5-5-m5qv.
+Verdict: BLOCKED — metadata capture compliant; provenance insufficient.
+All commands used /usr/bin/podman --remote=false --hooks-dir=<current-evidence>/empty-hooks.
+info --format=json: native0,5.212949s, full runtime JSON stdout, empty stderr.
+pinned-image inspect: native0,0.140229s, full one-image JSON stdout, empty stderr.
+exact retained owned-CID inspect: native125,0.131153s, stdout "[]\n", stderr "Error: no such container 5d0eccc3d5e422bde34475e812593fb55303f3ef9fbea7128fb7637cafef6e62\n".
+All deadline_seconds30/statecompleted/timeoutfalse/cleanup[]; wrapper0/no retry. Wrapper success does not make container inspection successful.
+Current environment exactly HOME=/home/ace,XDG_RUNTIME_DIR=/run/user/1000,PATH=/usr/bin:/bin,LANG=C,LC_ALL=C matches runner.py615-620; empty-hooks listing empty. Recorded runner before/afterSHA256 equal0b84820cd60eee2b6feaae995b63b77e4f995ee7906a29caca4b0090716fae34. This is recorded equality, not fresh hash, HEAD or repository-wide audit.
+Metadata declares local/rootless4.9.3 linuxamd64, parentUID/GID maps, overlaystore0containers, expectedimageID/digest, baseRootFSlayer6439a9e3... and matching directory names. Useful configuration, not physical ownership/topology/mount or isolation proof.
+Missing:
+1 Actual backingobject/ownership/no-redirection binding for image layer.
+2 Causal association/provenance of additional b4425c7e... layer in retainedcontainerLowerDir (maylegitimate, notmalice/productiondefect).
+3 Ordered actualbackingobject resolution for FHTCR7...,FHTCR7.../../diff1,4E6RQF... vs twoLowerDir entries.
+4 Current CID/PID/namespace/mount/effective-security/maps/layerbinding; selectedCIDabsent and oldsnapshotstale.
+5 New host-integrity comparison and complete effective isolation.
+Prior protectedlookup PermissionError/noobservations suppliednone ofmissingproof. mount_checks.py182-186 conservativealiasrejection appropriate; runner.py300-301 environment/integrationunfinished.
+S14: PASS capture compliance, BLOCKED sufficiency. S15: PASS recordedattempt, PARTIAL overall untilparentreport. S1-S2/S8 unmet; S3-S4 no realapply/confirmedproddefect; S5-S7/S9 respectedwithinrecordedattempt (notuniversalmutationaudit); S10BLOCKED; S11-S13partialhistory.
+No commands/tests/builds/scratch/livequeries/runtimeops performed by assessor; repository/evidence reads only. Old5s timeoutinconclusive; newinfo5.212949s exceedsfive but doesnotdiagnoseoldtimeout.
+Nextgate: retainBLOCKED or separately consider concrete compliant evidence strategy supplying missingbindings. No source/test/probe/protectedread/guardrelaxation/APT/nativeapproval justified.
+Evidence citations:
+metadata-attempt.json2,87-112; timed-{runtime,image,owned-container}.json2-21 and corresponding commandrecords2-13.
+runtime-metadata.json32-56,91-105,144-184; image-metadata.json16-22,30,38-52.
+../cdots-phase5a-cd5xiehq/running-inspect.json105-114,probes.json28.
+../cdots-phase5a-n7v_ea3h/overlay-metadata.json8-10,23.

@@ -1,0 +1,21 @@
+test_all_nonroot_tuples_and_effective_flags (test_mount_checks.MountChecksTests.test_all_nonroot_tuples_and_effective_flags) ... ok
+test_controlled_canonical_full_profile (test_mount_checks.MountChecksTests.test_controlled_canonical_full_profile) ... ok
+test_controller_evidence_required_only_in_full_mode (test_mount_checks.MountChecksTests.test_controller_evidence_required_only_in_full_mode) ... ok
+test_duplicates_parent_topology_and_malformed_records (test_mount_checks.MountChecksTests.test_duplicates_parent_topology_and_malformed_records) ... ok
+test_exact_controller_coordinates (test_mount_checks.MountChecksTests.test_exact_controller_coordinates) ... ok
+test_full_requires_every_boundary (test_mount_checks.MountChecksTests.test_full_requires_every_boundary) ... ok
+test_generated_uid_and_target_binding (test_mount_checks.MountChecksTests.test_generated_uid_and_target_binding) ... ok
+test_input_bounds_and_invalid_cid (test_mount_checks.MountChecksTests.test_input_bounds_and_invalid_cid) ... ok
+test_inspect_paths_and_identity_are_bound (test_mount_checks.MountChecksTests.test_inspect_paths_and_identity_are_bound) ... ok
+test_overlay_substitutions_and_aliases (test_mount_checks.MountChecksTests.test_overlay_substitutions_and_aliases) ... ok
+test_preserve_minimal_root_only_contract (test_mount_checks.MountChecksTests.test_preserve_minimal_root_only_contract) ... ok
+test_requires_fresh_runtime_inputs (test_mount_checks.MountChecksTests.test_requires_fresh_runtime_inputs) ... ok
+test_retained_standard_mounts_minimal (test_mount_checks.MountChecksTests.test_retained_standard_mounts_minimal) ... ok
+test_root_tuple_flags_and_inspect_lower_constraints (test_mount_checks.MountChecksTests.test_root_tuple_flags_and_inspect_lower_constraints) ... ok
+test_supported_aliases_are_opaque_diagnostics (test_mount_checks.MountChecksTests.test_supported_aliases_are_opaque_diagnostics) ... ok
+test_unknown_socket_escaped_and_broad_targets (test_mount_checks.MountChecksTests.test_unknown_socket_escaped_and_broad_targets) ... ok
+
+----------------------------------------------------------------------
+Ran 16 tests in 0.335s
+
+OK

@@ -1,0 +1,15 @@
+{
+  "argv": [
+    "/usr/bin/podman",
+    "--remote=false",
+    "--hooks-dir=/home/ace/.herdr/worktrees/codenburg-dots/feat-phase5-apt-e2e/test/e2e/apt/evidence/cdots-phase5a-cd5xiehq/empty-hooks",
+    "exec",
+    "5d0eccc3d5e422bde34475e812593fb55303f3ef9fbea7128fb7637cafef6e62",
+    "/bin/cat",
+    "/proc/self/status"
+  ],
+  "cwd": null,
+  "rc": 0,
+  "stderr": "",
+  "stdout": "Name:\tcat\nUmask:\t0022\nState:\tR (running)\nTgid:\t13\nNgid:\t0\nPid:\t13\nPPid:\t0\nTracerPid:\t0\nUid:\t0\t0\t0\t0\nGid:\t0\t0\t0\t0\nFDSize:\t64\nGroups:\t \nNStgid:\t13\nNSpid:\t13\nNSpgid:\t0\nNSsid:\t0\nKthread:\t0\nVmPeak:\t    2640 kB\nVmSize:\t    2640 kB\nVmLck:\t       0 kB\nVmPin:\t       0 kB\nVmHWM:\t    1228 kB\nVmRSS:\t    1228 kB\nRssAnon:\t      96 kB\nRssFile:\t    1132 kB\nRssShmem:\t       0 kB\nVmData:\t     360 kB\nVmStk:\t     132 kB\nVmExe:\t      20 kB\nVmLib:\t    1528 kB\nVmPTE:\t      48 kB\nVmSwap:\t       0 kB\nHugetlbPages:\t       0 kB\nCoreDumping:\t0\nTHP_enabled:\t1\nuntag_mask:\t0xffffffffffffffff\nThreads:\t1\nSigQ:\t0/25700\nSigPnd:\t0000000000000000\nShdPnd:\t0000000000000000\nSigBlk:\t0000000000000000\nSigIgn:\t0000000000000000\nSigCgt:\t0000000000000000\nCapInh:\t0000000000000000\nCapPrm:\t00000000800405fb\nCapEff:\t00000000800405fb\nCapBnd:\t00000000800405fb\nCapAmb:\t0000000000000000\nNoNewPrivs:\t1\nSeccomp:\t2\nSeccomp_filters:\t1\nSpeculation_Store_Bypass:\tthread vulnerable\nSpeculationIndirectBranch:\tconditional enabled\nCpus_allowed:\t3\nCpus_allowed_list:\t0-1\nMems_allowed:\t00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000001\nMems_allowed_list:\t0\nvoluntary_ctxt_switches:\t1\nnonvoluntary_ctxt_switches:\t5\nx86_Thread_features:\t\nx86_Thread_features_locked:\t\n"
+}

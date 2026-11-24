@@ -1,0 +1,12 @@
+{
+  "argv": [
+    "/usr/bin/podman",
+    "--remote=false",
+    "ps",
+    "-a",
+    "--format=json"
+  ],
+  "rc": 0,
+  "stdout": "[]\n",
+  "stderr": ""
+}

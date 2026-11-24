@@ -1,0 +1,45 @@
+{
+  "collected": true,
+  "complete": false,
+  "error": "unexpected container environment",
+  "gid": "0",
+  "guest-gid_map": "0          1      65536",
+  "guest-uid_map": "0          1      65536",
+  "guest_namespaces": {
+    "cgroup": "cgroup:[4026532776]",
+    "ipc": "ipc:[4026532716]",
+    "mnt": "mnt:[4026532714]",
+    "net": "net:[4026532718]",
+    "pid": "pid:[4026532717]",
+    "user": "user:[4026532713]",
+    "uts": "uts:[4026532715]"
+  },
+  "host-gid_map": "         0     100000      65536\n",
+  "host-uid_map": "         0     100000      65536\n",
+  "host_namespaces": {
+    "cgroup": "cgroup:[4026531835]",
+    "ipc": "ipc:[4026531839]",
+    "mnt": "mnt:[4026531832]",
+    "net": "net:[4026531833]",
+    "pid": "pid:[4026531836]",
+    "user": "user:[4026531837]",
+    "uts": "uts:[4026531838]"
+  },
+  "mountinfo": "742 789 0:59 /containers/overlay-containers/5d0eccc3d5e422bde34475e812593fb55303f3ef9fbea7128fb7637cafef6e62/userdata/hosts /etc/hosts rw,nosuid,nodev,relatime - tmpfs tmpfs rw,size=794756k,nr_inodes=198689,mode=700,uid=1000,gid=1000,inode64\n743 895 0:47 / /dev/shm rw,nosuid,nodev,noexec,relatime - tmpfs shm rw,size=64000k,uid=1000,gid=1000,inode64\n744 789 0:59 /containers/overlay-containers/5d0eccc3d5e422bde34475e812593fb55303f3ef9fbea7128fb7637cafef6e62/userdata/.containerenv /run/.containerenv rw,nosuid,nodev,relatime - tmpfs tmpfs rw,size=794756k,nr_inodes=198689,mode=700,uid=1000,gid=1000,inode64\n745 789 0:59 /containers/overlay-containers/5d0eccc3d5e422bde34475e812593fb55303f3ef9fbea7128fb7637cafef6e62/userdata/hostname /etc/hostname rw,nosuid,nodev,relatime - tmpfs tmpfs rw,size=794756k,nr_inodes=198689,mode=700,uid=1000,gid=1000,inode64\n746 789 0:59 /containers/overlay-containers/5d0eccc3d5e422bde34475e812593fb55303f3ef9fbea7128fb7637cafef6e62/userdata/resolv.conf /etc/resolv.conf rw,nosuid,nodev,relatime - tmpfs tmpfs rw,size=794756k,nr_inodes=198689,mode=700,uid=1000,gid=1000,inode64\n789 537 0:55 / / rw,relatime - overlay overlay rw,lowerdir=/home/ace/.local/share/containers/storage/overlay/l/FHTCR7FFTX3N7F43LP4VRZPHPT:/home/ace/.local/share/containers/storage/overlay/l/FHTCR7FFTX3N7F43LP4VRZPHPT/../diff1:/home/ace/.local/share/containers/storage/overlay/l/4E6RQF57LUTRQU22SARH43XGW6,upperdir=/home/ace/.local/share/containers/storage/overlay/a6663c74d77413590013038834741c45b2bb6fcbe52905af8faf2da5bc9b9584/diff,workdir=/home/ace/.local/share/containers/storage/overlay/a6663c74d77413590013038834741c45b2bb6fcbe52905af8faf2da5bc9b9584/work,redirect_dir=nofollow,uuid=on,userxattr\n790 789 0:74 / /proc rw,nosuid,nodev,noexec,relatime - proc proc rw\n895 789 0:83 / /dev rw,nosuid - tmpfs tmpfs rw,size=65536k,mode=755,uid=100000,gid=100000,inode64\n896 789 0:84 / /sys ro,nosuid,nodev,noexec,relatime - sysfs sysfs rw\n1037 895 0:85 / /dev/pts rw,nosuid,noexec,relatime - devpts devpts rw,gid=100005,mode=620,ptmxmode=666\n1038 895 0:73 / /dev/mqueue rw,nosuid,nodev,noexec,relatime - mqueue mqueue rw\n1039 896 0:32 / /sys/fs/cgroup ro,nosuid,nodev,noexec,relatime - cgroup2 cgroup2 rw,nsdelegate,memory_recursiveprot\n1040 895 0:7 /null /dev/null rw,nosuid,noexec,relatime - devtmpfs udev rw,size=3255740k,nr_inodes=813935,mode=755,inode64\n1041 895 0:7 /zero /dev/zero rw,nosuid,noexec,relatime - devtmpfs udev rw,size=3255740k,nr_inodes=813935,mode=755,inode64\n1042 895 0:7 /full /dev/full rw,nosuid,noexec,relatime - devtmpfs udev rw,size=3255740k,nr_inodes=813935,mode=755,inode64\n1043 895 0:7 /tty /dev/tty rw,nosuid,noexec,relatime - devtmpfs udev rw,size=3255740k,nr_inodes=813935,mode=755,inode64\n1044 895 0:7 /random /dev/random rw,nosuid,noexec,relatime - devtmpfs udev rw,size=3255740k,nr_inodes=813935,mode=755,inode64\n1045 895 0:7 /urandom /dev/urandom rw,nosuid,noexec,relatime - devtmpfs udev rw,size=3255740k,nr_inodes=813935,mode=755,inode64\n1046 790 0:86 / /proc/acpi ro,relatime - tmpfs tmpfs rw,size=0k,uid=100000,gid=100000,inode64\n1047 790 0:7 /null /proc/kcore ro,nosuid,relatime - devtmpfs udev rw,size=3255740k,nr_inodes=813935,mode=755,inode64\n1048 790 0:7 /null /proc/keys ro,nosuid,relatime - devtmpfs udev rw,size=3255740k,nr_inodes=813935,mode=755,inode64\n1049 790 0:7 /null /proc/latency_stats ro,nosuid,relatime - devtmpfs udev rw,size=3255740k,nr_inodes=813935,mode=755,inode64\n1050 790 0:7 /null /proc/timer_list ro,nosuid,relatime - devtmpfs udev rw,size=3255740k,nr_inodes=813935,mode=755,inode64\n1051 790 0:87 / /proc/scsi ro,relatime - tmpfs tmpfs rw,size=0k,uid=100000,gid=100000,inode64\n1052 896 0:88 / /sys/firmware ro,relatime - tmpfs tmpfs rw,size=0k,uid=100000,gid=100000,inode64\n1053 896 0:89 / /sys/dev/block ro,relatime - tmpfs tmpfs rw,size=0k,uid=100000,gid=100000,inode64\n1054 896 0:90 / /sys/devices/virtual/powercap ro,relatime - tmpfs tmpfs rw,size=0k,uid=100000,gid=100000,inode64\n1055 790 0:74 /asound /proc/asound ro,nosuid,nodev,noexec,relatime - proc proc rw\n1056 790 0:74 /bus /proc/bus ro,nosuid,nodev,noexec,relatime - proc proc rw\n1057 790 0:74 /fs /proc/fs ro,nosuid,nodev,noexec,relatime - proc proc rw\n1058 790 0:74 /irq /proc/irq ro,nosuid,nodev,noexec,relatime - proc proc rw\n1059 790 0:74 /sys /proc/sys ro,nosuid,nodev,noexec,relatime - proc proc rw\n1060 790 0:74 /sysrq-trigger /proc/sysrq-trigger ro,nosuid,nodev,noexec,relatime - proc proc rw",
+  "namespace-cgroup": "cgroup:[4026532776]",
+  "namespace-ipc": "ipc:[4026532716]",
+  "namespace-mnt": "mnt:[4026532714]",
+  "namespace-net": "net:[4026532718]",
+  "namespace-pid": "pid:[4026532717]",
+  "namespace-user": "user:[4026532713]",
+  "namespace-uts": "uts:[4026532715]",
+  "os_release": "PRETTY_NAME=\"Debian GNU/Linux 12 (bookworm)\"\nNAME=\"Debian GNU/Linux\"\nVERSION_ID=\"12\"\nVERSION=\"12 (bookworm)\"\nVERSION_CODENAME=bookworm\nID=debian\nHOME_URL=\"https://www.debian.org/\"\nSUPPORT_URL=\"https://www.debian.org/support\"\nBUG_REPORT_URL=\"https://bugs.debian.org/\"",
+  "parent_maps": [
+    "         0       1000          1\n         1     100000      65536\n",
+    "         0       1000          1\n         1     100000      65536\n"
+  ],
+  "stage": "poststart",
+  "started": true,
+  "status": "Name:\tcat\nUmask:\t0022\nState:\tR (running)\nTgid:\t13\nNgid:\t0\nPid:\t13\nPPid:\t0\nTracerPid:\t0\nUid:\t0\t0\t0\t0\nGid:\t0\t0\t0\t0\nFDSize:\t64\nGroups:\t \nNStgid:\t13\nNSpid:\t13\nNSpgid:\t0\nNSsid:\t0\nKthread:\t0\nVmPeak:\t    2640 kB\nVmSize:\t    2640 kB\nVmLck:\t       0 kB\nVmPin:\t       0 kB\nVmHWM:\t    1228 kB\nVmRSS:\t    1228 kB\nRssAnon:\t      96 kB\nRssFile:\t    1132 kB\nRssShmem:\t       0 kB\nVmData:\t     360 kB\nVmStk:\t     132 kB\nVmExe:\t      20 kB\nVmLib:\t    1528 kB\nVmPTE:\t      48 kB\nVmSwap:\t       0 kB\nHugetlbPages:\t       0 kB\nCoreDumping:\t0\nTHP_enabled:\t1\nuntag_mask:\t0xffffffffffffffff\nThreads:\t1\nSigQ:\t0/25700\nSigPnd:\t0000000000000000\nShdPnd:\t0000000000000000\nSigBlk:\t0000000000000000\nSigIgn:\t0000000000000000\nSigCgt:\t0000000000000000\nCapInh:\t0000000000000000\nCapPrm:\t00000000800405fb\nCapEff:\t00000000800405fb\nCapBnd:\t00000000800405fb\nCapAmb:\t0000000000000000\nNoNewPrivs:\t1\nSeccomp:\t2\nSeccomp_filters:\t1\nSpeculation_Store_Bypass:\tthread vulnerable\nSpeculationIndirectBranch:\tconditional enabled\nCpus_allowed:\t3\nCpus_allowed_list:\t0-1\nMems_allowed:\t00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000001\nMems_allowed_list:\t0\nvoluntary_ctxt_switches:\t1\nnonvoluntary_ctxt_switches:\t5\nx86_Thread_features:\t\nx86_Thread_features_locked:",
+  "uid": "0"
+}

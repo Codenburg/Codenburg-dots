@@ -1,0 +1,1 @@
+{"command": "PYTHONDONTWRITEBYTECODE=1 python3 -B test/e2e/apt/runner.py --probe-only --timeout 180", "attempt": 1}

@@ -1,0 +1,45 @@
+{
+  "status": "BLOCKED",
+  "captureCompliance": "PASS",
+  "independentAssessmentTask": "mv5s50o5-5-m5qv",
+  "captureWrapperRC": 0,
+  "commands": [
+    {
+      "kind": "runtime",
+      "nativeRC": 0,
+      "finalRC": 0,
+      "durationSeconds": 5.212949,
+      "timeout": false,
+      "stderr": ""
+    },
+    {
+      "kind": "image",
+      "nativeRC": 0,
+      "finalRC": 0,
+      "durationSeconds": 0.140229,
+      "timeout": false,
+      "stderr": ""
+    },
+    {
+      "kind": "owned-container",
+      "nativeRC": 125,
+      "finalRC": 125,
+      "durationSeconds": 0.131153,
+      "timeout": false,
+      "stderr": "Error: no such container 5d0eccc3d5e422bde34475e812593fb55303f3ef9fbea7128fb7637cafef6e62\n"
+    }
+  ],
+  "sourceHashEqualityRecorded": true,
+  "provenanceSufficient": false,
+  "missingEvidence": [
+    "physical backing objects/ownership/no redirection",
+    "generated b442-layer causal association",
+    "ordered lowerdir alias/diff1 resolution",
+    "current owned-container PID/mount/namespace/effective map/security/layer binding",
+    "fresh host integrity and complete effective isolation"
+  ],
+  "strategyEstablished": false,
+  "newProbeOrAPTAuthorized": false,
+  "retryPerformed": false,
+  "nextGate": "Human decision on a concrete compliant evidence strategy, or retain BLOCKED; independent verification still required before any future execution."
+}

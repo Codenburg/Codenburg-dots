@@ -1,0 +1,21 @@
+{
+  "mode": "metadata-only",
+  "image": "94926f0fd968cd68ac486502185a5dd78687874a9ec7727f64fe2af696e28311",
+  "digest": "sha256:2c037a04925515fdd6ea85ea14a682d0e79931f5e9f5d07b6dbfc6ba12f9e858",
+  "association": "retained owned-container inspect; not fresh-container isolation proof",
+  "scope": "named runtime overlay metadata only; no contents/tree scans/mounts/package commands",
+  "observations": [],
+  "status": "failure",
+  "root": {
+    "path": "/home/ace/.local/share/containers/storage/overlay",
+    "mode": 16841,
+    "uid": 1000,
+    "gid": 1000,
+    "dev": 2050,
+    "ino": 14296796,
+    "size": 4096,
+    "mtime_ns": 1791824116902233066,
+    "ctime_ns": 1791824116902233066
+  },
+  "error": "[Errno 13] Permission denied: '/home/ace/.local/share/containers/storage/overlay/b4425c7e4123b9d9b50fa18d1c83e180a18085cef812d042cb200d977bf3c733/diff'"
+}

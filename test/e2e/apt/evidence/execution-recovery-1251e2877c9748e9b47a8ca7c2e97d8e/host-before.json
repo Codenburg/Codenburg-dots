@@ -1,0 +1,6 @@
+{
+  "complete": false,
+  "error_type": "PermissionError",
+  "error": "[Errno 13] Permission denied: '/var/lib/dpkg/lock'",
+  "inventory": null
+}

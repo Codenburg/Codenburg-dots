@@ -1,0 +1,29 @@
+# Independent D1 design assessment
+Assessor: gentle-ai-verify, task mv5u41uh-7-80cp.
+Verdict: DESIGN ACCEPTED FOR CONDITIONAL BOUNDED INERT VALIDATION.
+No design blockers. NOT isolation proof, implementation acceptance, execution authorization or E2E PASS.
+Read the entire feature journal, D1 and normative safety/lifecycle plus existing mount/integrity modules. Repository/evidence reads only: no commands/tests/probes/externalfetch/live reads/writes. Parent structuralcheck is supplied evidence, not independently executed.
+
+G1-G10 accepted at design level:
+G1 exactpin/digest/local reviewedruntime; unpackedcachedbytes trusted, not independentlymeasured.
+G2 fullCID/name/token/image ownership beforeoperations; no globalcleanup/stalesubstitution.
+G3 bracketedPID/starttime/currentrunningstate + hostkernelobservations; ordinaryprocaccess unverified anddenialblocks withno guest-onlyfallback.
+G4 sevennamespace comparisons, frame-awaremapcomposition, root/caller/group exclusions andboundedprocessidentities.
+G5 init/collector kernelcapmasks/NNP/seccomp corroboration; activefilternotfingerprint; LSMlimitations explicit.
+G6 completehost-readmounttree/guestcorroboration; image/CID/native-rootfs association validONLYundertrustedruntime/storageboundary.
+G7 implicitfiles currentCID plus controllermount root/device correlation, notbasename/storageprefix; no arbitraryshares/preservedprivilegedFDs.
+G8 selectedstablehostpkgcomparison withunreadabilityrejection, notwholehostnoninterference.
+G9 evidencebefore exactownedcleanup/absenceconfirmation; TERM/KILLnotapplycancellation norwholecacherelease.
+G10 missing/contradictoryevidencefailsclosed, observationracesacknowledged; inertnotAPTpermission.
+
+Physicalownership/aliasresolution notnecessary independentgate under explicit trustedlocalruntime/kernel/operator/storage assumptions. PlausibleGraphDriverpaths doNOTexcuseunsafeeffectivemounts. Opendecision: whetherthatcontainer-strengthtrustboundaryacceptableforeventualAPT. Stronger compromised-host resistance/image-byteattestation/VM-strengthrequirements notsettled; changednetwork/capprofile needsseparate review/freshvalidation.
+
+S16 design/reassessment/coverage/supportedinterfaces/genuineguarantees/independentassessment met; focusedofflinetests prose-onlyexception justified (no executableAPIchange/no meaningfulRED/ceremonialtest). Eligibleto REQUESTnewgrant, notgranted. VMfallbackspecified. PriorS1-S3/S5/S8/currentintegrated/isolation/realapply/nativegatesstillunmet; overallPhase5ABLOCKED. OldS14/S15 metadatahistorical.
+
+Next prerequisites:
+1 Separatelyauthorizeofflineintegration andfreeze exactargv,collectoridentity,schema,resourcelimits,readscope,cleanupauthority.
+2 Currentcombinedoffline tests + D1rejectionmatrix, subprocessdenyretained.
+3 Independentintegratedsourceaudit BEFOREoneinert/noAPT.
+4 Existingguardsremainuntilreviewed replacements genuinelyenforceguarantees.
+Reconcile mount_checks alias/generatedfileassumptions; host_integrityoptionalpaths requireauthorizationorexclusion.
+Focusedtestmatrix additionallyrejectPIDreusebetweenbrackets, missinghostprocdespitematchingguest, wrongimplicitfilefilesystem/devicecorrelation, selectedintegrityreadsoutsidegrant.

@@ -1,0 +1,9 @@
+{
+  "uid": 1000,
+  "euid": 1000,
+  "gid": 1000,
+  "evidence_root_uid": 1000,
+  "evidence_root_mode": "0o700",
+  "environment_names": [],
+  "python_bytecode_disabled": true
+}

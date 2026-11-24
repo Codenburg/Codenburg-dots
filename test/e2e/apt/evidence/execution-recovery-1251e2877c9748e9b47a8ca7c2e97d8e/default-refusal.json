@@ -1,0 +1,6 @@
+{
+  "command": "python3 -B test/e2e/apt/runner.py",
+  "rc": 2,
+  "stdout": "",
+  "stderr": "Refused: choose an explicit disposable mode (review required).\n"
+}

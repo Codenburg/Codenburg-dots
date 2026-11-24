@@ -1,0 +1,29 @@
+{
+  "argv": [
+    "/usr/bin/podman",
+    "--remote=false",
+    "--hooks-dir=/home/ace/.herdr/worktrees/codenburg-dots/feat-phase5-apt-e2e/test/e2e/apt/evidence/cdots-phase5a-cd5xiehq/empty-hooks",
+    "create",
+    "--pull=never",
+    "--http-proxy=false",
+    "--name=cdots-apt-3a2024f39fd542359243c306b073385e",
+    "--cidfile=/home/ace/.herdr/worktrees/codenburg-dots/feat-phase5-apt-e2e/test/e2e/apt/evidence/cdots-phase5a-cd5xiehq/container.cid",
+    "--label=io.cdots.phase5a.owner=3a2024f39fd542359243c306b073385e",
+    "--user=0:0",
+    "--userns=auto:size=65536",
+    "--network=slirp4netns:allow_host_loopback=false",
+    "--pid=private",
+    "--ipc=private",
+    "--uts=private",
+    "--cgroupns=private",
+    "--security-opt=no-new-privileges",
+    "--entrypoint=",
+    "94926f0fd968cd68ac486502185a5dd78687874a9ec7727f64fe2af696e28311",
+    "/bin/sleep",
+    "infinity"
+  ],
+  "cwd": null,
+  "rc": 0,
+  "stderr": "",
+  "stdout": "5d0eccc3d5e422bde34475e812593fb55303f3ef9fbea7128fb7637cafef6e62\n"
+}

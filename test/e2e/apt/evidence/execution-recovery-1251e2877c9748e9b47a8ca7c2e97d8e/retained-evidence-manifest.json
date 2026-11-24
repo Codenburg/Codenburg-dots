@@ -1,0 +1,241 @@
+{
+  "directories": {
+    "test/e2e/apt/evidence/cdots-phase5a-cd5xiehq": {
+      "uid": 1000,
+      "mode": "0o700",
+      "symlink": false
+    },
+    "test/e2e/apt/evidence/cdots-phase5a-cd5xiehq/empty-hooks": {
+      "uid": 1000,
+      "mode": "0o700",
+      "symlink": false
+    },
+    "test/e2e/apt/evidence/execution-recovery-1251e2877c9748e9b47a8ca7c2e97d8e": {
+      "uid": 1000,
+      "mode": "0o700",
+      "symlink": false
+    },
+    "test/e2e/apt/evidence": {
+      "uid": 1000,
+      "mode": "0o700",
+      "symlink": false
+    }
+  },
+  "files": {
+    "command-0001.json": {
+      "uid": 1000,
+      "mode": "0o664",
+      "bytes": 5612,
+      "sha256": "bc70c8738ba621fc44eb29a28b612e14d3131215b4248d90f0f7083982e06e76"
+    },
+    "command-0002.json": {
+      "uid": 1000,
+      "mode": "0o664",
+      "bytes": 2747,
+      "sha256": "fa50ef1d1adee6b1919a2eb8038d53b17dadd053b19d7fa13c3e4dd0189a21b2"
+    },
+    "command-0003.json": {
+      "uid": 1000,
+      "mode": "0o664",
+      "bytes": 385,
+      "sha256": "f78bdf92295a72946963b94fa0faadd375b3c75417a3439357e6b315fea2de9e"
+    },
+    "command-0004.json": {
+      "uid": 1000,
+      "mode": "0o664",
+      "bytes": 385,
+      "sha256": "6b7f34a01885e85bdf8b17cedfe00bde09b7caf2fa8a3e659863f7bd9776fc1b"
+    },
+    "command-0005.json": {
+      "uid": 1000,
+      "mode": "0o664",
+      "bytes": 1013,
+      "sha256": "5d2f810952a5bcb82a8949dde2972fc77cb75c0283d30f24f026f7dd00914455"
+    },
+    "command-0006.json": {
+      "uid": 1000,
+      "mode": "0o664",
+      "bytes": 12016,
+      "sha256": "c0a2efb5d2f6e3770dae2d82ee6654ff917d034f3f01e697698b4988cb5580b5"
+    },
+    "command-0007.json": {
+      "uid": 1000,
+      "mode": "0o664",
+      "bytes": 411,
+      "sha256": "e91a07274b4902d26975292e0914ed7e7d6ac807975c0311e1171d55e1fe6671"
+    },
+    "command-0008.json": {
+      "uid": 1000,
+      "mode": "0o664",
+      "bytes": 12945,
+      "sha256": "8e8ceb899cd9838b9506d114599bbd58175eacfef2349944efcab140378af55d"
+    },
+    "command-0009.json": {
+      "uid": 1000,
+      "mode": "0o664",
+      "bytes": 414,
+      "sha256": "3cb512d5ff76013861d4e998a71161084c886e858a4f4f96f92f925e2e3bf456"
+    },
+    "command-0010.json": {
+      "uid": 1000,
+      "mode": "0o664",
+      "bytes": 412,
+      "sha256": "7560a53ee507b082bfbd71042c7310957603d2d9d0b227ef8a554a0f3b9ed0f1"
+    },
+    "command-0011.json": {
+      "uid": 1000,
+      "mode": "0o664",
+      "bytes": 412,
+      "sha256": "778c691e6e31262065ccb4bef0246d748221b39c16ed1afe8ae56f64646aa799"
+    },
+    "command-0012.json": {
+      "uid": 1000,
+      "mode": "0o664",
+      "bytes": 412,
+      "sha256": "1a5a847579949f469b337c01c5b976d98649d15a243ea2b05b29a26e8cf78116"
+    },
+    "command-0013.json": {
+      "uid": 1000,
+      "mode": "0o664",
+      "bytes": 412,
+      "sha256": "4fb40190120e5e96868976a6d3ffa2597a2b610122c4be97d5115b76f60eebee"
+    },
+    "command-0014.json": {
+      "uid": 1000,
+      "mode": "0o664",
+      "bytes": 412,
+      "sha256": "75a0b82d042f2af5d1035404b99baff9f38e4c4bfce60e88f54c928b52672f7b"
+    },
+    "command-0015.json": {
+      "uid": 1000,
+      "mode": "0o664",
+      "bytes": 418,
+      "sha256": "2f94b6799b0f7b81c90da02280cbb3a1c90ac23d6ac12d503edcc8ec2a85db0f"
+    },
+    "command-0016.json": {
+      "uid": 1000,
+      "mode": "0o664",
+      "bytes": 420,
+      "sha256": "efd6814bebf59be6403308c730ab504a8a139b15942b2b974708d4c9edd8d835"
+    },
+    "command-0017.json": {
+      "uid": 1000,
+      "mode": "0o664",
+      "bytes": 420,
+      "sha256": "1413992d7d45dda001ff6a2130134c255d6ae38f299ba7a5aee7ea79f48a585a"
+    },
+    "command-0018.json": {
+      "uid": 1000,
+      "mode": "0o664",
+      "bytes": 376,
+      "sha256": "5b3932c1cdba0cae57890eaca05a6f2f256f0ec64e5f99179ccea45bcd7c5445"
+    },
+    "command-0019.json": {
+      "uid": 1000,
+      "mode": "0o664",
+      "bytes": 376,
+      "sha256": "f37f66ee08f2dba74d9bcd8b178733dbc46bf9cdb5eea2d4210c64d0c1001ca8"
+    },
+    "command-0020.json": {
+      "uid": 1000,
+      "mode": "0o664",
+      "bytes": 1961,
+      "sha256": "85ec6bff9a6230462a6ec92d4292e72808ae97a95c5431d9886033f8fecc2ada"
+    },
+    "command-0021.json": {
+      "uid": 1000,
+      "mode": "0o664",
+      "bytes": 4863,
+      "sha256": "ff59a7e5d01b427a959813cf23d4986352347b8668d8171725361660db7a495e"
+    },
+    "command-0022.json": {
+      "uid": 1000,
+      "mode": "0o664",
+      "bytes": 673,
+      "sha256": "c0aee449a1521a1d132e602d06ddde1c85b7e770f4ba99088802edb53ce47700"
+    },
+    "command-0023.json": {
+      "uid": 1000,
+      "mode": "0o664",
+      "bytes": 385,
+      "sha256": "f78bdf92295a72946963b94fa0faadd375b3c75417a3439357e6b315fea2de9e"
+    },
+    "command-0024.json": {
+      "uid": 1000,
+      "mode": "0o664",
+      "bytes": 385,
+      "sha256": "6b7f34a01885e85bdf8b17cedfe00bde09b7caf2fa8a3e659863f7bd9776fc1b"
+    },
+    "command-0025.json": {
+      "uid": 1000,
+      "mode": "0o664",
+      "bytes": 12930,
+      "sha256": "0cda6ee2a17720fffff50b720f940bed42307f8b2b798196354941d88816b36b"
+    },
+    "command-0026.json": {
+      "uid": 1000,
+      "mode": "0o664",
+      "bytes": 329,
+      "sha256": "6907f3cf509d3190996f7e3fc70284d838c8d5d73b2b85507062b1daa259fc77"
+    },
+    "command-0027.json": {
+      "uid": 1000,
+      "mode": "0o664",
+      "bytes": 12930,
+      "sha256": "0cda6ee2a17720fffff50b720f940bed42307f8b2b798196354941d88816b36b"
+    },
+    "command-0028.json": {
+      "uid": 1000,
+      "mode": "0o664",
+      "bytes": 591,
+      "sha256": "ce720dee78be9e15a8b3ddcc4062d1b86e4d2b04612a6bab1e5350f42b23ec6a"
+    },
+    "command-0029.json": {
+      "uid": 1000,
+      "mode": "0o664",
+      "bytes": 13250,
+      "sha256": "f417a3326b7310b592f3d2e3c67ba9825e3d04b46f3c8b8b2b15b8abffe62fac"
+    },
+    "command-0030.json": {
+      "uid": 1000,
+      "mode": "0o664",
+      "bytes": 393,
+      "sha256": "09770677de6f9038a127c77322549139e4accd1e70d3123a3501f3b7710fdf44"
+    },
+    "created-inspect.json": {
+      "uid": 1000,
+      "mode": "0o664",
+      "bytes": 7658,
+      "sha256": "4179c62bc9256fbcff3e000a0293f5d6c0f3d26c2784361f6938a8e53ef919a7"
+    },
+    "empty-hooks": {
+      "uid": 1000,
+      "mode": "0o700",
+      "bytes": 4096
+    },
+    "final-inspect.json": {
+      "uid": 1000,
+      "mode": "0o664",
+      "bytes": 8569,
+      "sha256": "d84cdc512b2c5d62afc7f67fb8bbcaeedeb0b2bf77c2ee15c78c157f5035b358"
+    },
+    "probes.json": {
+      "uid": 1000,
+      "mode": "0o664",
+      "bytes": 7716,
+      "sha256": "f01cb4fd5807b1c620640529ec1481f679a32fa68b4f59969afe7f92d6509e94"
+    },
+    "running-inspect.json": {
+      "uid": 1000,
+      "mode": "0o664",
+      "bytes": 8569,
+      "sha256": "d84cdc512b2c5d62afc7f67fb8bbcaeedeb0b2bf77c2ee15c78c157f5035b358"
+    },
+    "summary.json": {
+      "uid": 1000,
+      "mode": "0o664",
+      "bytes": 423,
+      "sha256": "46b4a8fee66c451e00eb02b9231fa67d409d97269f0777d0231cc61e53ad1629"
+    }
+  }
+}

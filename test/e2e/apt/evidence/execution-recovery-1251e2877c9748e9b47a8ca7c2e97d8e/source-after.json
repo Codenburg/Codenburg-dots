@@ -1,0 +1,27 @@
+{
+  "runner.py": {
+    "sha256": "0b84820cd60eee2b6feaae995b63b77e4f995ee7906a29caca4b0090716fae34",
+    "uid": 1000,
+    "mode": "0o664"
+  },
+  "test_runner.py": {
+    "sha256": "a799557dca617e6355d1196e1ff564c06d70041a19d16e937e7aee14c385975b",
+    "uid": 1000,
+    "mode": "0o664"
+  },
+  "README.md": {
+    "sha256": "ea9416370d276b733a7d8d48781165d9c524f33400687bb88c9622fe109b5c1a",
+    "uid": 1000,
+    "mode": "0o664"
+  },
+  "fixtures/podman-4.9.3-created.json": {
+    "sha256": "932e16def7d1958100be1b4004b532c9cbde0d5ec901da3d960493cc967ab9aa",
+    "uid": 1000,
+    "mode": "0o664"
+  },
+  ".gitignore": {
+    "sha256": "dff1c6935f77ebeb02a8bf2056b7375b10f13fc267cd8dc652a016f2df4ad475",
+    "uid": 1000,
+    "mode": "0o664"
+  }
+}

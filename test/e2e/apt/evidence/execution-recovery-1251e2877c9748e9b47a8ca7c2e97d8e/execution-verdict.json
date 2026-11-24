@@ -1,0 +1,115 @@
+{
+  "verdict": "BLOCKED",
+  "reason": "unexpected container environment",
+  "probe_rc": 1,
+  "cid": "5d0eccc3d5e422bde34475e812593fb55303f3ef9fbea7128fb7637cafef6e62",
+  "started": true,
+  "collected": true,
+  "complete": false,
+  "prestart_gates_passed": true,
+  "running_init_pid": 15635,
+  "exact_declaration_matches": true,
+  "command_count": 30,
+  "all_command_rc_zero": true,
+  "cleanup": [
+    {
+      "argv": [
+        "/usr/bin/podman",
+        "--remote=false",
+        "--hooks-dir=/home/ace/.herdr/worktrees/codenburg-dots/feat-phase5-apt-e2e/test/e2e/apt/evidence/cdots-phase5a-cd5xiehq/empty-hooks",
+        "logs",
+        "5d0eccc3d5e422bde34475e812593fb55303f3ef9fbea7128fb7637cafef6e62"
+      ],
+      "rc": 0,
+      "stderr": "",
+      "stdout": ""
+    },
+    {
+      "argv": [
+        "/usr/bin/podman",
+        "--remote=false",
+        "--hooks-dir=/home/ace/.herdr/worktrees/codenburg-dots/feat-phase5-apt-e2e/test/e2e/apt/evidence/cdots-phase5a-cd5xiehq/empty-hooks",
+        "stop",
+        "--time=2",
+        "5d0eccc3d5e422bde34475e812593fb55303f3ef9fbea7128fb7637cafef6e62"
+      ],
+      "rc": 0,
+      "stderr": "time=\"2026-10-12T13:55:16-03:00\" level=warning msg=\"StopSignal SIGTERM failed to stop container cdots-apt-3a2024f39fd542359243c306b073385e in 2 seconds, resorting to SIGKILL\"\n",
+      "stdout": "5d0eccc3d5e422bde34475e812593fb55303f3ef9fbea7128fb7637cafef6e62\n"
+    },
+    {
+      "argv": [
+        "/usr/bin/podman",
+        "--remote=false",
+        "--hooks-dir=/home/ace/.herdr/worktrees/codenburg-dots/feat-phase5-apt-e2e/test/e2e/apt/evidence/cdots-phase5a-cd5xiehq/empty-hooks",
+        "rm",
+        "5d0eccc3d5e422bde34475e812593fb55303f3ef9fbea7128fb7637cafef6e62"
+      ],
+      "rc": 0,
+      "stderr": "",
+      "stdout": "5d0eccc3d5e422bde34475e812593fb55303f3ef9fbea7128fb7637cafef6e62\n"
+    }
+  ],
+  "stopped_verified": true,
+  "ps_after": [],
+  "namespace_pairs_distinct": true,
+  "declared_maps": {
+    "GidMap": [
+      "0:1:65536"
+    ],
+    "UidMap": [
+      "0:1:65536"
+    ]
+  },
+  "guest_maps": {
+    "guest-uid_map": "0          1      65536",
+    "guest-gid_map": "0          1      65536"
+  },
+  "host_maps": {
+    "host-uid_map": "         0     100000      65536\n",
+    "host-gid_map": "         0     100000      65536\n"
+  },
+  "parent_maps": [
+    "         0       1000          1\n         1     100000      65536\n",
+    "         0       1000          1\n         1     100000      65536\n"
+  ],
+  "privileged": false,
+  "declared_mounts": [],
+  "capabilities": [
+    "CAP_CHOWN",
+    "CAP_DAC_OVERRIDE",
+    "CAP_FOWNER",
+    "CAP_FSETID",
+    "CAP_KILL",
+    "CAP_NET_BIND_SERVICE",
+    "CAP_SETFCAP",
+    "CAP_SETGID",
+    "CAP_SETPCAP",
+    "CAP_SETUID",
+    "CAP_SYS_CHROOT"
+  ],
+  "status_security": [
+    "CapInh:\t0000000000000000",
+    "CapPrm:\t00000000800405fb",
+    "CapEff:\t00000000800405fb",
+    "CapBnd:\t00000000800405fb",
+    "CapAmb:\t0000000000000000",
+    "NoNewPrivs:\t1",
+    "Seccomp:\t2"
+  ],
+  "running_environment": [
+    "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+    "container=podman",
+    "HOME=/root",
+    "HOSTNAME=5d0eccc3d5e4"
+  ],
+  "mount_validation_reached": false,
+  "host_hashes_complete": false,
+  "host_hashes_unchanged": null,
+  "source_identity_unchanged": true,
+  "limitations": [
+    "Running schema/maps/security/mount/OS validators after environment refusal were not reached. Raw observations do not authorize execution.",
+    "Host hashes incomplete: PermissionError on /var/lib/dpkg/lock before and after.",
+    "No real APT/cdots/build/copy or second probe authorized or executed."
+  ]
+}

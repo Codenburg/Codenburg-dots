@@ -1,0 +1,14 @@
+{
+  "argv": [
+    "/usr/bin/podman",
+    "--remote=false",
+    "--hooks-dir=/home/ace/.herdr/worktrees/codenburg-dots/feat-phase5-apt-e2e/test/e2e/apt/evidence/cdots-phase5a-cd5xiehq/empty-hooks",
+    "unshare",
+    "/bin/cat",
+    "/proc/self/gid_map"
+  ],
+  "cwd": null,
+  "rc": 0,
+  "stderr": "",
+  "stdout": "         0       1000          1\n         1     100000      65536\n"
+}
