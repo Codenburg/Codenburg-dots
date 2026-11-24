@@ -1,0 +1,10 @@
+Scope: system
+State: complete local inventory
+Remote: scope=system name=flathub disabled=false
+Installed ref: scope=system id=com.github.tchx84.Flatseal arch=x86_64 branch=stable origin=flathub version=2.4.1
+Installed ref: scope=system id=com.obsproject.Studio arch=x86_64 branch=stable origin=flathub version=32.2.2
+Installed ref: scope=system id=com.rtosta.zapzap arch=x86_64 branch=stable origin=flathub version=7.5
+Installed ref: scope=system id=md.obsidian.Obsidian arch=x86_64 branch=stable origin=flathub version=1.14.4
+Installed ref: scope=system id=org.keepassxc.KeePassXC arch=x86_64 branch=stable origin=flathub version=2.7.12
+Installed ref: scope=system id=org.localsend.localsend_app arch=x86_64 branch=stable origin=flathub version=1.18.2
+Installed ref: scope=system id=org.telegram.desktop arch=x86_64 branch=stable origin=flathub version=7.3

@@ -1,0 +1,123 @@
+{
+  "HOME": "/home/ace",
+  "XDG_DATA_HOME": "(unset; default)",
+  "checks": [
+    {
+      "check": "help",
+      "args": [
+        "--help"
+      ],
+      "exit": 0,
+      "seconds": 0.028,
+      "stdout_bytes": 1848,
+      "stderr_bytes": 0
+    },
+    {
+      "check": "system",
+      "args": [
+        "system"
+      ],
+      "exit": 0,
+      "seconds": 0.108,
+      "stdout_bytes": 130,
+      "stderr_bytes": 0
+    },
+    {
+      "check": "package-git",
+      "args": [
+        "package",
+        "git"
+      ],
+      "exit": 0,
+      "seconds": 0.675,
+      "stdout_bytes": 107,
+      "stderr_bytes": 0
+    },
+    {
+      "check": "plan-legacy",
+      "args": [
+        "plan",
+        "git",
+        "bash"
+      ],
+      "exit": 0,
+      "seconds": 0.896,
+      "stdout_bytes": 306,
+      "stderr_bytes": 0
+    },
+    {
+      "check": "plan-apt",
+      "args": [
+        "plan",
+        "--provider=apt",
+        "git",
+        "bash"
+      ],
+      "exit": 0,
+      "seconds": 0.635,
+      "stdout_bytes": 306,
+      "stderr_bytes": 0
+    },
+    {
+      "check": "provider-required",
+      "args": [
+        "plan",
+        "firefox"
+      ],
+      "exit": 2,
+      "seconds": 0.027,
+      "stdout_bytes": 0,
+      "stderr_bytes": 81
+    },
+    {
+      "check": "flatpak-user",
+      "args": [
+        "flatpak",
+        "--scope=user"
+      ],
+      "exit": 0,
+      "seconds": 0.224,
+      "stdout_bytes": 97,
+      "stderr_bytes": 0
+    },
+    {
+      "check": "flatpak-system",
+      "args": [
+        "flatpak",
+        "--scope=system"
+      ],
+      "exit": 0,
+      "seconds": 0.153,
+      "stdout_bytes": 858,
+      "stderr_bytes": 0
+    },
+    {
+      "check": "flatpak-plan-user",
+      "args": [
+        "plan",
+        "--provider=flatpak",
+        "--scope=user",
+        "--arch=x86_64",
+        "firefox"
+      ],
+      "exit": 2,
+      "seconds": 0.453,
+      "stdout_bytes": 449,
+      "stderr_bytes": 153
+    },
+    {
+      "check": "flatpak-plan-system",
+      "args": [
+        "plan",
+        "--provider=flatpak",
+        "--scope=system",
+        "--arch=x86_64",
+        "firefox"
+      ],
+      "exit": 2,
+      "seconds": 0.324,
+      "stdout_bytes": 1095,
+      "stderr_bytes": 482
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+Software: firefox (Firefox)
+Provider: flatpak
+Desired: present
+Requested: id=org.mozilla.firefox scope=system remote=flathub arch=x86_64 branch=stable
+State: unknown
+Installed refs: none observed
+Candidate (cached; freshness/installability unknown) refs: none observed
+Diagnostic: scope=system operation=remote-ls remote=flathub: isolated flatpak inspection failed (remote-ls; sandbox support is mandatory; stderr "error: While fetching https://dl.flathub.org/repo/summaries/764564aa6c85011788163759d2eca60c5febb0cb449763fabd95ea3cea9e9dcc.gz: [6] Couldn't resolve host name\n"): exit status 1
+Action: error
+Diagnostic: software "firefox" provider "flatpak" selection {ID:org.mozilla.firefox Scope:system Remote:flathub Arch:x86_64 Branch:stable}: scope "system" operation "remote-ls" remote "flathub": isolated flatpak inspection failed (remote-ls; sandbox support is mandatory; stderr "error: While fetching https://dl.flathub.org/repo/summaries/764564aa6c85011788163759d2eca60c5febb0cb449763fabd95ea3cea9e9dcc.gz: [6] Couldn't resolve host name\n"): exit status 1
+incomplete Flatpak evidence

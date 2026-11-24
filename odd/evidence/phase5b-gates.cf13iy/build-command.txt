@@ -1,0 +1,1 @@
+Build command: GOMAXPROCS=1 GOPROXY=off GOTOOLCHAIN=local nice -n 19 go build -p=1 -o <evidence>/cdots ./cmd/cdots

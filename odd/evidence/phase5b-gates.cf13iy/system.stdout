@@ -1,0 +1,6 @@
+Distribution: Linux Mint
+ID: linuxmint
+ID_LIKE: ubuntu debian
+Architecture: amd64 (raw: x86_64)
+Support: supported
+APT: available

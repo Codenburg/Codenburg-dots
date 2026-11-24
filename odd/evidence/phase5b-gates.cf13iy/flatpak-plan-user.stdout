@@ -1,0 +1,9 @@
+Software: firefox (Firefox)
+Provider: flatpak
+Desired: present
+Requested: id=org.mozilla.firefox scope=user remote=flathub arch=x86_64 branch=stable
+State: unavailable
+Installed refs: none observed
+Candidate (cached; freshness/installability unknown) refs: none observed
+Action: unavailable
+Diagnostic: software "firefox" provider "flatpak" selection {ID:org.mozilla.firefox Scope:user Remote:flathub Arch:x86_64 Branch:stable}: package unavailable

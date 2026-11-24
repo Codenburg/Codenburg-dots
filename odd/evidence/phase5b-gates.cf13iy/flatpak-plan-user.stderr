@@ -1,0 +1,1 @@
+cdots: software "firefox" provider "flatpak" selection {ID:org.mozilla.firefox Scope:user Remote:flathub Arch:x86_64 Branch:stable}: package unavailable

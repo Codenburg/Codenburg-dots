@@ -1,0 +1,15 @@
+Software: git (Git)
+Provider: apt
+Package: git
+Desired: present
+Installed version: 1:2.43.0-1ubuntu7.3
+Candidate version: 1:2.43.0-1ubuntu7.3
+Action: none
+
+Software: bash (Bash)
+Provider: apt
+Package: bash
+Desired: present
+Installed version: 5.2.21-2ubuntu4
+Candidate version: 5.2.21-2ubuntu4
+Action: none
