@@ -4,6 +4,7 @@ package apt
 
 import (
 	"bufio"
+	"bytes"
 	"context"
 	"errors"
 	"fmt"
@@ -67,12 +68,12 @@ func (e *Executor) Execute(ctx context.Context, preview Preview) (ret error) {
 	if err := provider.ValidateApply(ctx, preview); err != nil {
 		return err
 	}
-	dump, stderr, err := provider.runner.Run(ctx, "apt-config", "dump")
+	dump, stderr, err := provider.runner.Run(ctx, "apt-config", "-o", "APT::Config::Dump::Format="+executionDumpFormat, "-o", "APT::Config::Dump::EmptyValue=true", "dump")
 	if err != nil || stderr != "" {
 		// Runner errors may echo configuration values, including credentials.
 		return errors.New("root APT configuration unavailable")
 	}
-	cfg, err := parseExecutionDump(dump)
+	cfg, err := parseExecutionDumpFormat(dump, true)
 	if err != nil {
 		return err
 	}
@@ -175,28 +176,52 @@ var executionFalseKeys = []string{
 
 type executionSettings map[string][]string
 
+const executionDumpFormat = "%F \"%V\";\n"
+
 // apt-config dump is a snapshot, not an effective apt-get configuration. Reject
 // binary-specific authority settings instead of incorrectly applying its scope.
-// Parsing deliberately rejects escaped/ambiguous syntax without echoing values:
+// Parsing deliberately rejects ambiguous syntax without echoing values:
 // an unrelated proxy credential must never enter errors or our generated file.
-func parseExecutionDump(dump string) (executionSettings, error) {
+func parseExecutionDumpFormat(dump string, encodedValues bool) (executionSettings, error) {
 	if len(dump) > maxCommandOutput || !strings.HasSuffix(dump, "\n") {
 		return nil, errors.New("incomplete APT configuration dump")
 	}
 	cfg := executionSettings{}
 	for _, line := range strings.Split(strings.TrimSuffix(dump, "\n"), "\n") {
 		key, value, ok := strings.Cut(line, " \"")
-		if !ok || key == "" || !strings.HasSuffix(value, "\";") || strings.ContainsAny(key, " \t\r\n\\\"") {
+		if !ok || key == "" || !strings.HasSuffix(value, "\";") || strings.ContainsRune(key, '\\') || encodeConfig(key) != key {
 			return nil, errors.New("unsupported APT configuration syntax")
 		}
+		key = strings.ToLower(key)
 		value = strings.TrimSuffix(value, "\";")
-		if strings.ContainsAny(value, "\"\\\r\n\x00") {
+		if encodedValues {
+			// %V quotes control bytes, separators and percent exactly once.
+			decoded, err := decodeHookConfig(value, false)
+			if err != nil || !strings.EqualFold(encodeConfig(decoded), value) {
+				return nil, errors.New("unsupported APT configuration encoding")
+			}
+			value = decoded
+		}
+		if strings.ContainsRune(value, 0) || !encodedValues && strings.ContainsAny(value, "\"\r\n") ||
+			strings.Contains(value, `\`) && !isDebianIgnoreFilePattern(key, value) {
 			return nil, errors.New("unsupported APT configuration encoding")
 		}
-		key = strings.ToLower(key)
 		cfg[key] = append(cfg[key], value)
 	}
 	return cfg, nil
+}
+
+// APT 2.6.1 Configuration::Dump uses %v (raw values), not %V. The
+// backslashes below are literal regex bytes; never unescape or replay them.
+func isDebianIgnoreFilePattern(key, value string) bool {
+	if key != "dir::ignore-files-silently::" {
+		return false
+	}
+	switch value {
+	case `\.disabled$`, `\.bak$`, `\.dpkg-[a-z]+$`, `\.ucf-[a-z]+$`, `\.save$`, `\.orig$`, `\.distUpgrade$`:
+		return true
+	}
+	return false
 }
 
 // Only known default dpkg-preconfigure is retained, behind the guard. Custom
@@ -285,7 +310,8 @@ func checkExecutionConfig(cfg executionSettings, guarded bool) ([]string, error)
 					if guarded && strings.HasPrefix(tail, "/proc/") {
 						continue
 					}
-					if tail != "/usr/sbin/dpkg-preconfigure::version" || value != "1" {
+					if !(tail == "/usr/sbin/dpkg-preconfigure::version" && value == "1" ||
+						guarded && tail == "/usr/sbin/dpkg-preconfigure::infofd" && value == "0") {
 						return nil, errors.New("unsupported native hook protocol options")
 					}
 				case key == "dpkg::progress-fancy" && (value == "0" || value == "false"):
@@ -341,7 +367,7 @@ func executionConfig(hooks []string) string {
 	token, _, _ := strings.Cut(hooks[0], " ")
 	fmt.Fprintf(&b, "DPkg::Tools::Options::%s::Version \"3\";\nDPkg::Tools::Options::%s::InfoFD \"0\";\n", token, token)
 	if len(hooks) > 1 {
-		b.WriteString("DPkg::Tools::Options::/usr/sbin/dpkg-preconfigure::Version \"1\";\n")
+		b.WriteString("DPkg::Tools::Options::/usr/sbin/dpkg-preconfigure::Version \"1\";\nDPkg::Tools::Options::/usr/sbin/dpkg-preconfigure::InfoFD \"0\";\n")
 	}
 	for _, key := range executionFalseKeys {
 		fmt.Fprintf(&b, "%s \"false\";\n", key)
@@ -422,19 +448,29 @@ func checkExecutionHost() error {
 }
 
 func trustedExecutionPath(path string) error {
-	resolved, err := filepath.EvalSymlinks(path)
+	return trustedExecutionPathWithFS(path, filepath.EvalSymlinks, os.Stat)
+}
+
+// The private filesystem seam keeps trust decisions testable without changing
+// ownership on the host. Production always uses the native functions above.
+func trustedExecutionPathWithFS(path string, resolve func(string) (string, error), statPath func(string) (os.FileInfo, error)) error {
+	resolved, err := resolve(path)
 	if err != nil {
 		return errors.New("trusted execution path unavailable")
 	}
 	for {
-		info, err := os.Stat(resolved)
+		info, err := statPath(resolved)
 		if err != nil {
 			return errors.New("trusted execution ownership unavailable")
 		}
 		stat, ok := info.Sys().(*syscall.Stat_t)
-		stickyTmp := resolved == "/tmp" && info.Mode()&os.ModeSticky != 0
-		if !ok || stat.Uid != 0 || info.Mode().Perm()&0022 != 0 && !stickyTmp {
-			return errors.New("untrusted execution path or ancestor")
+		sticky := info.Mode()&os.ModeSticky != 0
+		stickyTmp := resolved == "/tmp" && sticky
+		if !ok {
+			return fmt.Errorf("untrusted execution path or ancestor: requested=%q rejected=%q ownership=unavailable mode=%04o sticky=%t", path, resolved, info.Mode().Perm(), sticky)
+		}
+		if stat.Uid != 0 || info.Mode().Perm()&0022 != 0 && !stickyTmp {
+			return fmt.Errorf("untrusted execution path or ancestor: requested=%q rejected=%q uid=%d mode=%04o sticky=%t", path, resolved, stat.Uid, info.Mode().Perm(), sticky)
 		}
 		if resolved == "/" {
 			return nil
@@ -452,11 +488,26 @@ func checkConfigIncludes(path string) (ret error) {
 		return errors.New("APT configuration unavailable")
 	}
 	defer func() { ret = errors.Join(ret, file.Close()) }()
-	scanner := bufio.NewScanner(io.LimitReader(file, maxCommandOutput+1))
-	total := 0
+	data, err := io.ReadAll(io.LimitReader(file, maxCommandOutput+1))
+	if err != nil {
+		return errors.New("APT configuration scan incomplete")
+	}
+	if len(data) > maxCommandOutput {
+		return errors.New("APT configuration directives/includes unsupported")
+	}
+	scanner := bufio.NewScanner(bytes.NewReader(data))
 	for scanner.Scan() {
-		total += len(scanner.Bytes()) + 1
-		if total > maxCommandOutput || strings.Contains(scanner.Text(), "#") {
+		// APT 2.6.1 ReadConfigFile strips leading hash comments unless
+		// they start with a directive prefix. Accept only hash + space/tab
+		// on comment-only lines; do not model inline syntax.
+		line := strings.TrimLeft(scanner.Text(), " \t")
+		if strings.HasPrefix(line, "# ") || strings.HasPrefix(line, "#\t") {
+			continue
+		}
+		// Reject block-comment openers in active text so APT cannot carry
+		// block-comment state into a later hash-comment line. Also reject
+		// active percent syntax, which ParseQuoteWord decodes in tags.
+		if strings.ContainsAny(line, "#%") || strings.Contains(line, "/*") {
 			return errors.New("APT configuration directives/includes unsupported")
 		}
 	}

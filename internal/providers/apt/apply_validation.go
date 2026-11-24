@@ -107,6 +107,40 @@ func (p *Provider) CompareVersions(ctx context.Context, left, relation, right st
 	return false, fmt.Errorf("compare Debian versions: %w", err)
 }
 
+// expectedAbsentInspection recognizes only the inspection outcome already
+// accepted by Inspect. Keep its raw diagnostic; additional failures are not absence.
+func expectedAbsentInspection(d Diagnostic, requests []string) bool {
+	if d.Stdout != "" {
+		return false
+	}
+	err := d.Err
+	for err != nil {
+		if joined, ok := err.(interface{ Unwrap() []error }); ok {
+			causes := joined.Unwrap()
+			if len(causes) != 1 {
+				return false
+			}
+			err = causes[0]
+			continue
+		}
+		if cause := errors.Unwrap(err); cause != nil {
+			err = cause
+			continue
+		}
+		break
+	}
+	if !exitCode(err, 1) {
+		return false
+	}
+	for _, name := range requests {
+		command := "dpkg-query -W -f=${db:Status-Abbrev}\\t${Version}\\n -- " + name
+		if d.Command == command && strings.TrimSpace(d.Stderr) == "dpkg-query: no packages found matching "+name {
+			return true
+		}
+	}
+	return false
+}
+
 // ValidateApply is deliberately stricter than read-only preflight. It validates
 // bound safety evidence, but grants no authorization and performs no mutation.
 func (p *Provider) ValidateApply(ctx context.Context, v Preview) error {
@@ -114,7 +148,7 @@ func (p *Provider) ValidateApply(ctx context.Context, v Preview) error {
 		return errors.New("unresolved transaction")
 	}
 	for _, d := range v.Metadata {
-		if d.Err != nil {
+		if d.Err != nil && !expectedAbsentInspection(d, v.Requests) {
 			return fmt.Errorf("unresolved metadata: %w", d.Err)
 		}
 	}

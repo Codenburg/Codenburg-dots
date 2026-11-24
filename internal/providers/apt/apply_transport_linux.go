@@ -333,6 +333,13 @@ func checkEffectiveHookConfig(data []byte, hooks []string) error {
 		"dpkg::tools::options::" + token + "::infofd":  "0",
 		"quiet": "0", "apt::get::quiet": "0",
 	}
+	for _, hook := range hooks[1:] {
+		if hook == preconfigureHook {
+			required["dpkg::tools::options::/usr/sbin/dpkg-preconfigure::version"] = "1"
+			required["dpkg::tools::options::/usr/sbin/dpkg-preconfigure::infofd"] = "0"
+		}
+	}
+
 	for _, key := range executionFalseKeys {
 		required[strings.ToLower(key)] = "false"
 	}

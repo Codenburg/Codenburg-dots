@@ -100,7 +100,7 @@ func fixtureExecutor(t *testing.T, mode, marker string, stdout, stderr io.Writer
 	t.Helper()
 	r := hookRunner()
 	r.results["apt-get --version"] = result{out: "apt 2.6.1 (amd64)\n"}
-	r.results["apt-config dump"] = result{out: "Dir \"/\";\nDPkg::Pre-Install-Pkgs:: \"" + preconfigureHook + "\";\n"}
+	r.results[pinnedDumpFixtureKey] = result{out: pinnedDumpFixture("Dir \"/\";\nDPkg::Pre-Install-Pkgs:: \"" + preconfigureHook + "\";\n")}
 	e := NewExecutor(New(executionFixtureRunner{r}), strings.NewReader(""), stdout, stderr)
 	e.uid = func() int { return 0 } // Private injection; never reachable in shipped CLI.
 	e.checkHost = func() error { return nil }
@@ -393,7 +393,7 @@ func TestExecutorConfigRejectsBeforeInvocation(t *testing.T) {
 	} {
 		t.Run(tc.name, func(t *testing.T) {
 			e, r, argv := fixtureExecutor(t, "apt-good", "", io.Discard, io.Discard)
-			r.results["apt-config dump"] = result{out: tc.dump}
+			r.results[pinnedDumpFixtureKey] = result{out: pinnedDumpFixture(tc.dump)}
 			if err := e.Execute(context.Background(), hookInstallPreview()); err == nil || len(*argv) != 0 {
 				t.Fatalf("unsafe config launched process: %v", err)
 			}
@@ -432,7 +432,7 @@ func TestExecutorProductionHostGate(t *testing.T) {
 func TestExecutorSupportedNativePTYOverride(t *testing.T) {
 	marker := filepath.Join(t.TempDir(), "dpkg")
 	e, r, _ := fixtureExecutor(t, "apt-good", marker, io.Discard, io.Discard)
-	r.results["apt-config dump"] = result{out: "Dpkg::Use-Pty \"true\";\nDPkg::Pre-Install-Pkgs:: \"" + preconfigureHook + "\";\n"}
+	r.results[pinnedDumpFixtureKey] = result{out: pinnedDumpFixture("Dpkg::Use-Pty \"true\";\nDPkg::Pre-Install-Pkgs:: \"" + preconfigureHook + "\";\n")}
 	if err := e.Execute(context.Background(), hookInstallPreview()); err != nil {
 		t.Fatal(err)
 	}
@@ -653,4 +653,25 @@ func TestAPTExecutionHelper(t *testing.T) {
 		}
 	}
 	os.Exit(0)
+}
+
+func TestExecutorPinsNativeDumpFraming(t *testing.T) {
+	e, r, argv := fixtureExecutor(t, "apt-good", "", io.Discard, io.Discard)
+	key := "apt-config -o APT::Config::Dump::Format=%F \"%V\";\n -o APT::Config::Dump::EmptyValue=true dump"
+	r.results[key] = result{out: "DPkg::Pre-Install-Pkgs:: \"" + encodeConfig(preconfigureHook) + "\";\n"}
+
+	if err := e.Execute(context.Background(), hookInstallPreview()); err != nil || len(*argv) == 0 {
+		t.Fatalf("expected pinned dump and supported hook: %v", err)
+	}
+}
+
+const pinnedDumpFixtureKey = "apt-config -o APT::Config::Dump::Format=%F \"%V\";\n -o APT::Config::Dump::EmptyValue=true dump"
+
+func pinnedDumpFixture(raw string) string {
+	var out strings.Builder
+	for _, line := range strings.Split(strings.TrimSuffix(raw, "\n"), "\n") {
+		key, value, _ := strings.Cut(line, " \"")
+		fmt.Fprintf(&out, "%s \"%s\";\n", key, encodeConfig(strings.TrimSuffix(value, "\";")))
+	}
+	return out.String()
 }

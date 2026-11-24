@@ -1,0 +1,7 @@
+apt	2.6.1
+apt-listchanges	3.24
+debconf	1.5.82
+debconf: /usr/sbin/dpkg-preconfigure
+debconf: /etc/apt/apt.conf.d/70debconf
+apt-listchanges: /etc/apt/apt.conf.d/20listchanges
+apt-listchanges: /usr/bin/apt-listchanges

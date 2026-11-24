@@ -201,6 +201,8 @@ func TestEffectiveNativeConfiguration(t *testing.T) {
 		{"purge enabled", bytes.Replace(data, []byte("apt::get::purge=false"), []byte("apt::get::purge=true"), 1)},
 		{"changed protocol", bytes.Replace(data, []byte("::version=3"), []byte("::version=2"), 1)},
 		{"changed fd", bytes.Replace(data, []byte("::infofd=0"), []byte("::infofd=1"), 1)},
+		{"missing debconf version", bytes.ReplaceAll(data, []byte("dpkg::tools::options::/usr/sbin/dpkg-preconfigure::version=1\n"), nil)},
+		{"duplicate debconf version", bytes.ReplaceAll(data, []byte("dpkg::tools::options::/usr/sbin/dpkg-preconfigure::version=1\n"), []byte("dpkg::tools::options::/usr/sbin/dpkg-preconfigure::version=1\ndpkg::tools::options::/usr/sbin/dpkg-preconfigure::version=1\n"))},
 		{"extra preinvoke", bytes.Replace(data, []byte("Binary=apt-get\n"), []byte("Binary=apt-get\ndpkg::pre-invoke::=malicious\n"), 1)},
 		{"missing native binary scope", bytes.Replace(data, []byte("Binary=apt-get\n"), nil, 1)},
 	} {
